@@ -1,0 +1,19 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customer');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'Manage Customers' => $this->url('beheer/customers'),
+    'Add Customer' => $this->url('beheer/customers', ['action' => 'add'])
+]);
+$form->setAttributes(array(
+    'class' => 'form-horizontal',
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1>Manage Customers</h1>
+<?php
+echo $this->partial('customers/customer/partials/form.phtml', array('form' => $form));
+?>

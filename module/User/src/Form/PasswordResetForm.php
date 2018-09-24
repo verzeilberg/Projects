@@ -50,7 +50,7 @@ class PasswordResetForm extends Form
                     'suffix' => '.png',
                     'imgUrl' => '/img/captcha/',
                     'imgAlt' => 'CAPTCHA Image',
-                    'font' => './data/font/thorne_shaded.ttf',
+                    'font' => $_SERVER['DOCUMENT_ROOT'] . '/../data/font/thorne_shaded.ttf',
                     'fsize' => 24,
                     'width' => 350,
                     'height' => 100,

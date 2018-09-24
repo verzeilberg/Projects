@@ -31,5 +31,6 @@ return [
     'Zend\Validator',    
     'Customers',
     'User',
+    'UploadFiles',
     'Application'
 ];

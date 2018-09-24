@@ -16,7 +16,7 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
 <p>
-<a class="btn btn-default" href="
+<a class="btn btn-primary" href="
     <?= $this->url('roles', ['action'=>'add']); ?>">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Role
 </a>
@@ -43,7 +43,7 @@ $this->pageBreadcrumbs()->setItems([
         </td>
         <td><?= $this->escapeHtml($role->getDescription()); ?></a> 
         </td>
-        <td><nobr><?= $this->escapeHtml($role->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= (is_object($role->getDateCreated()) ? $this->escapeHtml($role->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
         <td>
             </nobr>
             <a class="btn btn-info" href="<?= $this->url('roles', 

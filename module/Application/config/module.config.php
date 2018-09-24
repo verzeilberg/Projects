@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
@@ -17,37 +18,70 @@ return [
             'home' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                     ],
                 ],
             ],
             'application' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action[/:id]]',
+                    'route' => '/application[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]+'
                     ],
                     'defaults' => [
-                        'controller'    => Controller\IndexController::class,
-                        'action'        => 'index',
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'index',
                     ],
                 ],
             ],
             'about' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/about',
+                    'route' => '/about',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'about',
+                        'action' => 'about',
                     ],
                 ],
-            ],            
+            ],
+            'beheer' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/beheer',
+                    'defaults' => [
+                        'controller' => Controller\BeheerController::class,
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'customers' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/customers[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Customers\Controller\CustomerController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
+                    'countries' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/countries[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Customers\Controller\CountryController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -74,6 +108,14 @@ return [
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
             ],
+            \Customers\Controller\CustomerController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+customer.manage']
+            ],
+            \Customers\Controller\CountryController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+country.manage']
+            ],
         ]
     ],
     // This key stores configuration for RBAC manager.
@@ -98,15 +140,15 @@ return [
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
@@ -115,9 +157,9 @@ return [
     // The following key allows to define custom styling for FlashMessenger view helper.
     'view_helper_config' => [
         'flashmessenger' => [
-            'message_open_format'      => '<div%s><ul><li>',
-            'message_close_string'     => '</li></ul></div>',
+            'message_open_format' => '<div%s><ul><li>',
+            'message_close_string' => '</li></ul></div>',
             'message_separator_string' => '</li><li>'
         ]
-    ],   
+    ],
 ];

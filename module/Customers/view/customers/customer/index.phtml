@@ -1,0 +1,45 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customer');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Manage Customers'=>$this->url('beheer/customers'),
+            ]);
+?>
+
+<h1>Manage Customers</h1>
+
+<p>
+<a class="btn btn-primary" href="
+    <?= $this->url('beheer/customers', ['action'=>'add']); ?>">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer
+</a>
+</p>
+
+<table class="table table-striped">
+
+   <tr>
+        <th>Name</th>
+        <th>Date Created</th>
+    </tr>
+    
+    <?php foreach ($customers as $customer): ?>
+    
+    <tr>
+        <td>
+            <?= $this->escapeHtml($customer->getName()); ?></a> 
+        </td>
+        <td><nobr><?= (is_object($user->getDateCreated()) ? $this->escapeHtml($user->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
+        <td>
+            <a class="btn btn-info" href="<?= $this->url('beheer/customers', 
+                    ['action'=>'edit', 'id'=>$customer->getId()]); ?>">
+                <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+        </td>    
+    </tr>
+        
+    <?php endforeach; ?>   
+    
+</table>

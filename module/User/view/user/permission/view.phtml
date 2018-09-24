@@ -30,7 +30,7 @@ $this->pageBreadcrumbs()->setItems([
             </tr>
             <tr>
                 <th>Date Created:</th>
-                <td><?= $this->escapeHtml($permission->getDateCreated()) ?></th>
+                <td><?= (is_object($permission->getDateCreated()) ? $this->escapeHtml($permission->getDateCreated()->format('Y-m-d')): ''); ?></th>
             </tr>
         </table>
     </div>

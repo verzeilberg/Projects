@@ -2,14 +2,14 @@
 
 namespace Customers\Service;
 
-interface customerServiceInterface {
+interface countryServiceInterface {
 
     /**
      *
-     * Get array of customers
+     * Get array of countries
      *
      * @return      array
      *
      */
-    public function getCustomers();
+    public function getCountries();
 }

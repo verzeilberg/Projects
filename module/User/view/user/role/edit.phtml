@@ -34,7 +34,7 @@ $form->prepare();
 <h1>Edit Role <?= $this->escapeHtml($role->getName()) ?></h1>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
+<a class="btn btn-primary" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
   <span class="glyphicon glyphicon-check"></span> Edit Permissions
 </a>
 </p>

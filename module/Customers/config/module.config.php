@@ -10,15 +10,14 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'controllers' => [
         'factories' => [
-            Controller\CustomersController::class => Factory\CustomersControllerFactory::class,
-        ],
-        'aliases' => [
-            'customersbeheer' => Controller\CustomersController::class,
+            Controller\CustomerController::class => Factory\CustomerControllerFactory::class,
+            Controller\CountryController::class => Factory\CountryControllerFactory::class,
         ],
     ],
     'service_manager' => [
         'invokables' => [
-            'Customers\Service\customersServiceInterface' => 'Customers\Service\customersService'
+            'Customers\Service\customerServiceInterface' => 'Customers\Service\customerService',
+            'Customers\Service\countryServiceInterface' => 'Customers\Service\countryService'
         ],
     ],
     // The following section is new and should be added to your file
@@ -33,7 +32,21 @@ return [
                         'id' => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => 'customersbeheer',
+                        'controller' => Controller\CustomerController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'countries' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/countries[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\CountryController::class,
                         'action' => 'index',
                     ],
                 ],
@@ -49,9 +62,13 @@ return [
     // access to certain controller actions for unauthorized visitors.
     'access_filter' => [
         'controllers' => [
-            'customersbeheer' => [
+            \Customers\Controller\CustomerController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '+customers.manage']
+                ['actions' => '*', 'allow' => '+customer.manage']
+            ],
+            \Customers\Controller\CountryController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+country.manage']
             ],
         ]
     ],

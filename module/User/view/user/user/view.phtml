@@ -17,11 +17,11 @@ $this->pageBreadcrumbs()->setItems([
 <h1>View User <?= $this->escapeHtml($user->getEmail()) ?></h1>
 
 <p>
-    <a class="btn btn-default" href="<?= $this->url('users', 
+    <a class="btn btn-primary" href="<?= $this->url('users', 
             ['action'=>'edit', 'id'=>$user->getId()]); ?>">
         <span class="glyphicon glyphicon-pencil" ></span> Edit
     </a>
-    <a class="btn btn-default" href="<?= $this->url('users',
+    <a class="btn btn-primary" href="<?= $this->url('users',
             ['action'=>'change-password', 'id'=>$user->getId()]); ?>">
         <span class="glyphicon glyphicon-asterisk"></span> Change Password
     </a>    
@@ -44,7 +44,7 @@ $this->pageBreadcrumbs()->setItems([
             </tr>
             <tr>
                 <th>Date Created:</th>
-                <td><?= $this->escapeHtml($user->getDateCreated()) ?></th>
+                <td><?= (is_object($user->getDateCreated()) ? $this->escapeHtml($user->getDateCreated()->format('Y-m-d')): ''); ?></th>
             </tr>
             <tr>
                 <th>Status:</th>

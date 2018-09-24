@@ -18,7 +18,7 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', 
+<a class="btn btn-primary" href="<?= $this->url('roles', 
                     ['action'=>'edit', 'id'=>$role->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit Role
 </a>
@@ -41,7 +41,7 @@ $this->pageBreadcrumbs()->setItems([
             </tr>
             <tr>
                 <th>Date Created:</th>
-                <td><?= $this->escapeHtml($role->getDateCreated()) ?></th>
+                <td><?= (is_object($role->getDateCreated()) ? $this->escapeHtml($role->getDateCreated()->format('Y-m-d')): ''); ?></th>
             </tr>
         </table>
     </div>
@@ -50,7 +50,7 @@ $this->pageBreadcrumbs()->setItems([
 <h2>Permissions</h2>
 
 <p>
-<a class="btn btn-default" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
+<a class="btn btn-primary" href="<?= $this->url('roles', ['action'=>'editPermissions', 'id'=>$role->getId()]) ?>">
   <span class="glyphicon glyphicon-check"></span> Edit Permissions
 </a>
 </p>

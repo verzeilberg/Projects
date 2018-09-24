@@ -39,7 +39,8 @@
         "psr-4": {
             "Application\\": "module/Application/src/",
             "Customers\\": "module/Customers/src/",
-            "User\\": "module/User/src/"
+            "User\\": "module/User/src/",
+            "UploadFiles\\": "module/UploadFiles/src/"
         }
     },
     "autoload-dev": {

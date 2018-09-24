@@ -9,13 +9,33 @@ class CustomerController extends AbstractActionController {
 
     protected $vhm;
     protected $em;
+    protected $cs;
 
-    public function __construct($vhm, $em) {
+    public function __construct($vhm, $em, $cs) {
         $this->vhm = $vhm;
         $this->em = $em;
+        $this->cs = $cs;
     }
 
     public function indexAction() {
-        return new ViewModel();
+        $customers = $this->cs->getCustomers();
+
+        return new ViewModel(
+                array(
+            'customers' => $customers
+                )
+        );
     }
+
+    public function addAction() {
+        $customer = $this->cs->newCustomer();
+        $form = $this->cs->createForm($customer);
+
+        return new ViewModel(
+                array(
+            'form' => $form
+                )
+        );
+    }
+
 }
