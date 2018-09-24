@@ -76,6 +76,7 @@ class Customer extends UnityOfWork {
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
      * @Annotation\Options({
+     * "empty_option": "---",
      * "target_class":"Customers\Entities\Country",
      * "property": "shortName",
      * "label": "Country",
