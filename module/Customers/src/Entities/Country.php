@@ -44,7 +44,7 @@ class Country extends UnityOfWork {
     /**
      * One Country has One flag file.
      * @ORM\OneToOne(targetEntity="UploadFiles\Entity\UploadFiles")
-     * @ORM\JoinColumn(name="file_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="file_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $flag;
 

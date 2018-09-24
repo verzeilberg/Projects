@@ -97,8 +97,8 @@ class countryService implements countryServiceInterface {
      * @return      void
      *
      */
-    public function deleteCountry($countries) {
-        $this->entityManager->remove($countries);
+    public function deleteCountry($country) {
+        $this->entityManager->remove($country);
         $this->entityManager->flush();
     }
 

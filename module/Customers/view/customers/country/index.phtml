@@ -23,6 +23,7 @@ $this->pageBreadcrumbs()->setItems([
    <tr>
         <th>Name</th>
         <th>Date Created</th>
+        <th></th>
     </tr>
     
     <?php foreach ($countries as $country): ?>
@@ -31,11 +32,15 @@ $this->pageBreadcrumbs()->setItems([
         <td>
             <?= $this->escapeHtml($country->getName()); ?></a> 
         </td>
-        <td><nobr><?= (is_object($user->getDateCreated()) ? $this->escapeHtml($user->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
+        <td><nobr><?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
         <td>
             <a class="btn btn-info" href="<?= $this->url('beheer/countries', 
                     ['action'=>'edit', 'id'=>$country->getId()]); ?>">
                 <span class="glyphicon glyphicon-pencil" ></span> Edit
+            </a>
+            <a class="btn btn-info" href="<?= $this->url('beheer/countries', 
+                    ['action'=>'delete', 'id'=>$country->getId()]); ?>">
+                <span class="glyphicon glyphicon-trash" ></span> Delete
             </a>
         </td>    
     </tr>

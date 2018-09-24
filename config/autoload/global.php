@@ -66,4 +66,13 @@ return [
             ],
         ],
     ],
+    'filesUploadSettings' => [
+        'uploadFolder' => 'files/userFiles/files/',
+        'uploadeFileSize' => '5000000000000000',
+        'allowedFileExtensions' => [
+            'image/jpeg'
+        ],
+        //'rootPath' => dirname(__DIR__) . '/../../public/img/userFiles'
+        'rootPath' => $_SERVER['DOCUMENT_ROOT'] . '/img/userFiles',
+    ],
 ];

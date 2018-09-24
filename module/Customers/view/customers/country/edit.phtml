@@ -1,0 +1,19 @@
+<?php
+$this->headTitle('Countries');
+
+$this->mainMenu()->setActiveItemId('countries');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'Manage Countries' => $this->url('beheer/countries'),
+    'Edit Country' => $this->url('beheer/countries', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'class' => 'form-horizontal',
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1>Manage Countries</h1>
+<?php
+echo $this->partial('customers/country/partials/form.phtml', array('form' => $form, 'country' => $country));
+?>
