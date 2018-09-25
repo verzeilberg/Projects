@@ -70,9 +70,11 @@ return [
         'uploadFolder' => 'files/userFiles/files/',
         'uploadeFileSize' => '5000000000000000',
         'allowedFileExtensions' => [
-            'image/jpeg'
+            'image/png',
+            'image/jpeg',
+            'doc',
+            'docx'
         ],
-        //'rootPath' => dirname(__DIR__) . '/../../public/img/userFiles'
         'rootPath' => $_SERVER['DOCUMENT_ROOT'] . '/img/userFiles',
     ],
 ];

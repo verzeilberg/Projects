@@ -56,7 +56,7 @@ class NavManager {
             if ($this->rbacManager->isGranted(null, 'user.manage')) {
                 $items[] = [
                     'id' => 'users',
-                    'label' => 'Manage Users',
+                    'label' => 'Users',
                     'link' => $url('users')
                 ];
             }
@@ -64,7 +64,7 @@ class NavManager {
             if ($this->rbacManager->isGranted(null, 'permission.manage')) {
                 $items[] = [
                     'id' => 'permissions',
-                    'label' => 'Manage Permissions',
+                    'label' => 'Permissions',
                     'link' => $url('permissions')
                 ];
             }
@@ -72,7 +72,7 @@ class NavManager {
             if ($this->rbacManager->isGranted(null, 'role.manage')) {
                 $items[] = [
                     'id' => 'roles',
-                    'label' => 'Manage Roles',
+                    'label' => 'Roles',
                     'link' => $url('roles')
                 ];
             }
@@ -80,7 +80,7 @@ class NavManager {
             if ($this->rbacManager->isGranted(null, 'customer.manage')) {
                 $items[] = [
                     'id' => 'customers',
-                    'label' => 'Manage Customers',
+                    'label' => 'Customers',
                     'link' => $url('beheer/customers')
                 ];
             }
@@ -88,7 +88,7 @@ class NavManager {
             if ($this->rbacManager->isGranted(null, 'country.manage')) {
                 $items[] = [
                     'id' => 'countries',
-                    'label' => 'Manage Countries',
+                    'label' => 'Countries',
                     'link' => $url('beheer/countries')
                 ];
             }

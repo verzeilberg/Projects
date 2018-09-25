@@ -19,14 +19,10 @@
         </div>
     </div>
     <?php
-if(is_object($country) && is_object($country->getFlag())){
-    echo '<img src="/' . $country->getFlag()->getPath() . '" alt="bla" width="250" height="auto" />';
-} else {
-echo $this->partial('customers/country/partials/upload_form.phtml', array('form' => $form));
-}
-?>
-    
-    
+    echo $this->partial('customers/country/partials/upload_form.phtml', array('form' => $form, 'file' => $country->getFlag()));
+    ?>
+
+
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12 " style="padding-left:0;">
     <button type="submit" id="submit" class="btn btn-primary">Opslaan</button> <a href="<?php echo $this->url['beheer\countries']; ?>" class="btn btn-default" title="Annuleren">Annuleren</a>
