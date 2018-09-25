@@ -3,7 +3,7 @@ if (is_object($file)) {
     echo '<div id="file'.$file->getId().'">';
     echo '<img src="/' . $file->getPath() . '" alt="bla" width="250" height="auto" />';
     echo '<div class="fileOptions">';
-    echo '  <span data-fileid="'.$file->getId() . '" class="btn btn-primary btn-sm deleteFileObject glyphicon glyphicon-trash" aria-hidden="true"></span>';
+    echo '  <span data-fileid="'.$file->getId() . '" class="btn btn-danger btn-sm deleteFileObject"><i class="fas fa-trash-alt"></i></span>';
     echo '</div>';
 } else {
     ?>

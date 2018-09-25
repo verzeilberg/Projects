@@ -25,7 +25,7 @@ class Country extends UnityOfWork {
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Name",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
      */
@@ -35,7 +35,7 @@ class Country extends UnityOfWork {
      * @ORM\Column(name="short_name", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Short name",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Short name"})
      */
