@@ -32,5 +32,6 @@ return [
     'Customers',
     'User',
     'UploadFiles',
+    'AssetManager',
     'Application'
 ];

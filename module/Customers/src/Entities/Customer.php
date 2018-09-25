@@ -25,7 +25,7 @@ class Customer extends UnityOfWork {
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Name",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
      */
@@ -35,7 +35,7 @@ class Customer extends UnityOfWork {
      * @ORM\Column(name="visit_street", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Visit street & number",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"visit street"})
      */
@@ -45,7 +45,7 @@ class Customer extends UnityOfWork {
      * @ORM\Column(name="visit_number", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Visit number",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"visit number"})
      */
@@ -55,7 +55,7 @@ class Customer extends UnityOfWork {
      * @ORM\Column(name="visit_city", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Visit city",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"visit city"})
      */
@@ -65,7 +65,7 @@ class Customer extends UnityOfWork {
      * @ORM\Column(name="visit_postal_code", type="string", length=255, nullable=false)
      * @Annotation\Options({
      * "label": "Visit postal code & city",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"visit postal code"})
      */
@@ -80,7 +80,7 @@ class Customer extends UnityOfWork {
      * "target_class":"Customers\Entities\Country",
      * "property": "shortName",
      * "label": "Country",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 form-control-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control"})
      */

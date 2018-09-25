@@ -30,6 +30,7 @@ class CountryController extends AbstractActionController {
     }
 
     public function addAction() {
+        $this->vhm->get('headScript')->appendFile('/js/upload-files.js');
         $country = $this->cs->newCountry();
         $form = $this->cs->createForm($country);
         $form = $this->ufs->addFileInputToForm($form);
@@ -67,6 +68,7 @@ class CountryController extends AbstractActionController {
     }
 
     public function editAction() {
+        $this->vhm->get('headScript')->appendFile('/js/upload-files.js');
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/countries');
