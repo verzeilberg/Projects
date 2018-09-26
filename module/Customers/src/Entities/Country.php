@@ -42,11 +42,11 @@ class Country extends UnityOfWork {
     protected $shortName;
 
     /**
-     * One Country has One flag file.
-     * @ORM\OneToOne(targetEntity="UploadFiles\Entity\UploadFiles")
-     * @ORM\JoinColumn(name="file_id", referencedColumnName="id", onDelete="SET NULL")
+     * One country have One Image.
+     * @ORM\OneToOne(targetEntity="UploadImages\Entity\Image")
+     * @ORM\JoinColumn(name="imageId", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $flag;
+    private $countryImage;
 
     function getId() {
         return $this->id;
@@ -60,8 +60,8 @@ class Country extends UnityOfWork {
         return $this->shortName;
     }
 
-    function getFlag() {
-        return $this->flag;
+    function getCountryImage() {
+        return $this->countryImage;
     }
 
     function setId($id) {
@@ -76,8 +76,8 @@ class Country extends UnityOfWork {
         $this->shortName = $shortName;
     }
 
-    function setFlag($flag) {
-        $this->flag = $flag;
+    function setCountryImage($countryImage) {
+        $this->countryImage = $countryImage;
     }
 
 }

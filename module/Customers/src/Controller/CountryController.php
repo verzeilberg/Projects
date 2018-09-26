@@ -4,6 +4,7 @@ namespace Customers\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container;
 
 class CountryController extends AbstractActionController {
 
@@ -11,12 +12,16 @@ class CountryController extends AbstractActionController {
     protected $em;
     protected $cs;
     protected $ufs;
+    protected $cropImageService;
+    protected $imageService;
 
-    public function __construct($vhm, $em, $cs, $ufs) {
+    public function __construct($vhm, $em, $cs, $ufs, $cropImageService, $imageService) {
         $this->vhm = $vhm;
         $this->em = $em;
         $this->cs = $cs;
         $this->ufs = $ufs;
+        $this->cropImageService = $cropImageService;
+        $this->imageService = $imageService;
     }
 
     public function indexAction() {
@@ -31,44 +36,85 @@ class CountryController extends AbstractActionController {
 
     public function addAction() {
         $this->vhm->get('headScript')->appendFile('/js/upload-files.js');
+        $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+        //Create session container for crop images
+        $container = new Container('cropImages');
+        $container->getManager()->getStorage()->clear('cropImages');
+
+
         $country = $this->cs->newCountry();
         $form = $this->cs->createForm($country);
-        $form = $this->ufs->addFileInputToForm($form);
+
+        //Create new image object and form for image
+        $image = $this->imageService->createImage();
+        $formImage = $this->imageService->createImageForm($image);
+
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
-            if ($form->isValid()) {
+            $formImage->setData($this->getRequest()->getPost());
+            if ($form->isValid() && $formImage->isValid()) {
+                //Create image array and set it
+                $imageFile = [];
+                $imageFile = $this->getRequest()->getFiles('image');
+                //Upload image
+                if ($imageFile['error'] === 0) {
+                    //Upload original file
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    
+                    if (is_array($imageFiles)) {
+                        $folderOriginal = $imageFiles['imageType']->getFolder();
+                        $fileName = $imageFiles['imageType']->getFileName();
+                        $image = $imageFiles['image'];
+                        //Upload thumb 150x100
+                        $imageFiles = $this->cropImageService->resizeAndCropImage('public/' . $folderOriginal . $fileName, 'public/img/userFiles/countries/thumb/', 150, 100, '150x100', $image);
+                        //Create 450x300 crop
+                        $imageFiles = $this->cropImageService->createCropArray('450x300', $folderOriginal, $fileName, 'public/img/userFiles/countries/450x300/', 450, 300, $image);
+                        $image = $imageFiles['image'];
+                        $cropImages = $imageFiles['cropImages'];
+                        //Create return URL
+                        $returnURL = $this->cropImageService->createReturnURL('beheer/countries', 'index');
 
-                if ($this->getRequest()->getFiles('fileUpload') != null) {
-                    $data = $this->ufs->uploadFile($this->getRequest()->getFiles('fileUpload'), null, 'default');
+                        //Create session container for crop
+                        $this->cropImageService->createContainerImages($cropImages, $returnURL);
 
-                    if (is_array($data)) {
-                        $file = $this->ufs->createFile();
-                        $description = $this->getRequest()->getPost('fileDescription');
-                        $this->ufs->setNewFile($file, $data, $description, $this->currentUser());
-                        $country->setFlag($file);
-                    } else {
-                        $this->flashMessenger()->addErrorMessage('Flag not saved: ' . $data);
+                        //Save blog image
+                        $this->imageService->saveImage($image);
+                        //Add imgae to country
+                        $country->setCountryImage($image);
                     }
+                } else {
+                    $this->flashMessenger()->addSuccessMessage($imageFiles);
                 }
-
-                //Save Event
-                $country->setDateCreated(new \DateTime());
+                //End upload image
+                //Save Country
                 $this->cs->saveCountry($country, $this->currentUser());
-                $this->flashMessenger()->addSuccessMessage('Country saved');
-                return $this->redirect()->toRoute('beheer/countries');
+                
+                if ($imageFile['error'] === 0 && is_array($imageFiles)) {
+                    return $this->redirect()->toRoute('beheer/images', array('action' => 'crop'));
+                } else {
+                    return $this->redirect()->toRoute('beheer/countries');
+                }
+                
             }
         }
 
         return new ViewModel(
                 array(
             'country' => $country,
-            'form' => $form
+            'form' => $form,
+            'formImage' => $formImage
                 )
         );
     }
 
     public function editAction() {
-        $this->vhm->get('headScript')->appendFile('/js/upload-files.js');
+        $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
+        $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+        
+        //Create session container for crop images
+        $container = new Container('cropImages');
+        $container->getManager()->getStorage()->clear('cropImages');
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/countries');
@@ -77,37 +123,64 @@ class CountryController extends AbstractActionController {
         if (empty($country)) {
             return $this->redirect()->toRoute('beheer/countries');
         }
+        
+        $image = $this->imageService->createImage();
+        $formImage = $this->imageService->createImageForm($image);
         $form = $this->cs->createForm($country);
-        $form = $this->ufs->addFileInputToForm($form);
+
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
-            if ($form->isValid()) {
+            $formImage->setData($this->getRequest()->getPost());
+            if ($form->isValid() && $formImage->isValid()) {
+                //Create image array and set it
+                $imageFile = [];
+                $imageFile = $this->getRequest()->getFiles('image');
+                //Upload image
+                if ($imageFile['error'] === 0) {
+                    //Upload original file
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    if (is_array($imageFiles)) {
+                        $folderOriginal = $imageFiles['imageType']->getFolder();
+                        $fileName = $imageFiles['imageType']->getFileName();
+                        $image = $imageFiles['image'];
+                        //Upload thumb 150x100
+                        $imageFiles = $this->cropImageService->resizeAndCropImage('public/' . $folderOriginal . $fileName, 'public/img/userFiles/countries/thumb/', 150, 100, '150x100', $image);
+                        //Create 450x300 crop
+                        $imageFiles = $this->cropImageService->createCropArray('450x300', $folderOriginal, $fileName, 'public/img/userFiles/countries/450x300/', 450, 300, $image);
+                        $image = $imageFiles['image'];
+                        $cropImages = $imageFiles['cropImages'];
+                        //Create return URL
+                        $returnURL = $this->cropImageService->createReturnURL('beheer/countries', 'index');
 
-                if ($this->getRequest()->getFiles('fileUpload') != null) {
-                    $data = $this->ufs->uploadFile($this->getRequest()->getFiles('fileUpload'), null, 'default');
+                        //Create session container for crop
+                        $this->cropImageService->createContainerImages($cropImages, $returnURL);
 
-                    if (is_array($data)) {
-                        $file = $this->ufs->createFile();
-                        $description = $this->getRequest()->getPost('fileDescription');
-                        $this->ufs->setNewFile($file, $data, $description, $this->currentUser());
-                        $country->setFlag($file);
-                    } else {
-                        $this->flashMessenger()->addErrorMessage('Flag not saved: ' . $data);
+                        //Save blog image
+                        $this->imageService->saveImage($image);
+                        //Add imgae to country
+                        $country->setCountryImage($image);
                     }
+                } else {
+                    $this->flashMessenger()->addSuccessMessage($imageFiles);
                 }
-
-                //Save Event
-                $country->setDateCreated(new \DateTime());
-                $this->cs->saveCountry($country, $this->currentUser());
-                $this->flashMessenger()->addSuccessMessage('Country edited');
-                return $this->redirect()->toRoute('beheer/countries');
+                //End upload image
+                //Save Country
+                $this->cs->updateCountry($country, $this->currentUser());
             }
         }
+
+        $returnURL = [];
+        $returnURL['id'] = $id;
+        $returnURL['route'] = 'beheer/countries';
+        $returnURL['action'] = 'edit';
 
         return new ViewModel(
                 array(
             'country' => $country,
-            'form' => $form
+            'form' => $form,
+            'formImage' => $formImage,
+            'image' => $country->getCountryImage(),
+            'returnURL' => $returnURL
                 )
         );
     }
@@ -125,12 +198,7 @@ class CountryController extends AbstractActionController {
         if (empty($country)) {
             return $this->redirect()->toRoute('beheer/countries');
         }
-        //Delete country and file
-        $file = $country->getFlag();
-        if (count($file) > 0) {
-            $this->ufs->deleteFile($file);
-        }
-        
+
         $this->cs->deleteCountry($country);
         $this->flashMessenger()->addSuccessMessage('Country removed');
         return $this->redirect()->toRoute('beheer/countries');

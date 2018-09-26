@@ -5,22 +5,26 @@
         <meta charset="utf-8">
         <?= $this->headTitle('Projects')->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?= $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        <?=
+                $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
         <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-4.0.0/bootstrap.min.css'))
+        <?=
+                $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+                ->prependStylesheet($this->basePath('css/style.css'))
+                ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                ->prependStylesheet($this->basePath('css/bootstrap-4.0.0/bootstrap.min.css'))
         ?>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
         <!-- Scripts -->
-        <?= $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap-4.0.0/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
+        <?=
+                $this->headScript()
+                ->prependFile($this->basePath('js/bootstrap-4.0.0/bootstrap.min.js'))
+                ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
         ?>
     </head>
     <body>
@@ -49,13 +53,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Breadcrumbs -->
-                    <?= $this->pageBreadcrumbs()->render(); ?>
+<?= $this->pageBreadcrumbs()->render(); ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Page content placeholder -->
-                    <?= $this->content; ?>
+<?= $this->content; ?>
                 </div>
             </div>
             <hr>
@@ -63,6 +67,6 @@
                 <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
             </footer>
         </div>
-        <?= $this->inlineScript() ?>
+<?= $this->inlineScript() ?>
     </body>
 </html>

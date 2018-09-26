@@ -40,7 +40,8 @@
             "Application\\": "module/Application/src/",
             "Customers\\": "module/Customers/src/",
             "User\\": "module/User/src/",
-            "UploadFiles\\": "module/UploadFiles/src/"
+            "UploadFiles\\": "module/UploadFiles/src/",
+            "UploadImages\\": "module/UploadImages/src/"
         }
     },
     "autoload-dev": {

@@ -49,8 +49,8 @@ class countryService implements countryServiceInterface {
 
         return $countries;
     }
-    
-        /**
+
+    /**
      *
      * Create form of an object
      *
@@ -81,11 +81,39 @@ class countryService implements countryServiceInterface {
     /**
      *
      * Save a countries to database
+     * @param       country $country object
+     * @param       user $user object
+     * @return      void
+     *
+     */
+    public function saveCountry($country, $user) {
+        $country->setDateCreated(new \DateTime());
+        $country->setCreatedBy($user);
+        $this->storeCountry($country);
+    }
+
+    /**
+     *
+     * Update a countries to database
+     * @param       country $country object
+     * @param       user $user object
+     * @return      void
+     *
+     */
+    public function updateCountry($country, $user) {
+        $country->setDateChanged(new \DateTime());
+        $country->setChangedBy($user);
+        $this->storeCountry($country);
+    }
+
+    /**
+     *
+     * Save a countries to database
      * @param       countries $countries object
      * @return      void
      *
      */
-    public function saveCountry($country) {
+    public function storeCountry($country) {
         $this->entityManager->persist($country);
         $this->entityManager->flush();
     }

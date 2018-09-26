@@ -32,6 +32,7 @@ return [
     'Customers',
     'User',
     'UploadFiles',
+    'UploadImages',
     'AssetManager',
     'Application'
 ];
