@@ -53,20 +53,40 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Breadcrumbs -->
-<?= $this->pageBreadcrumbs()->render(); ?>
+                    <?= $this->pageBreadcrumbs()->render(); ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Page content placeholder -->
-<?= $this->content; ?>
+                    <?= $this->content; ?>
                 </div>
             </div>
+
+            <?php
+            $flashMessenger = $this->flashMessenger()
+                    ->setMessageOpenFormat(
+                            '<div%s>
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+						&times;
+					</button>
+				<ul class="flashMessages"><li>')
+                    ->setMessageSeparatorString('</li><li>')
+                    ->setMessageCloseString('</li></ul></div>');
+            ?>
+
+            <?php
+            echo $this->flashMessenger()->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
+            echo $this->flashMessenger()->render('info', array('alert', 'alert-dismissable', 'alert-info'));
+            echo $this->flashMessenger()->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+            echo $this->flashMessenger()->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+            ?>
+
             <hr>
             <footer>
                 <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
             </footer>
         </div>
-<?= $this->inlineScript() ?>
+        <?= $this->inlineScript() ?>
     </body>
 </html>

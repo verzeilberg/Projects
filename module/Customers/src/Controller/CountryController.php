@@ -60,7 +60,7 @@ class CountryController extends AbstractActionController {
                 if ($imageFile['error'] === 0) {
                     //Upload original file
                     $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
-                    
+
                     if (is_array($imageFiles)) {
                         $folderOriginal = $imageFiles['imageType']->getFolder();
                         $fileName = $imageFiles['imageType']->getFileName();
@@ -88,13 +88,12 @@ class CountryController extends AbstractActionController {
                 //End upload image
                 //Save Country
                 $this->cs->saveCountry($country, $this->currentUser());
-                
+
                 if ($imageFile['error'] === 0 && is_array($imageFiles)) {
                     return $this->redirect()->toRoute('beheer/images', array('action' => 'crop'));
                 } else {
                     return $this->redirect()->toRoute('beheer/countries');
                 }
-                
             }
         }
 
@@ -110,7 +109,7 @@ class CountryController extends AbstractActionController {
     public function editAction() {
         $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
         $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
-        
+
         //Create session container for crop images
         $container = new Container('cropImages');
         $container->getManager()->getStorage()->clear('cropImages');
@@ -123,7 +122,7 @@ class CountryController extends AbstractActionController {
         if (empty($country)) {
             return $this->redirect()->toRoute('beheer/countries');
         }
-        
+
         $image = $this->imageService->createImage();
         $formImage = $this->imageService->createImageForm($image);
         $form = $this->cs->createForm($country);
@@ -166,6 +165,12 @@ class CountryController extends AbstractActionController {
                 //End upload image
                 //Save Country
                 $this->cs->updateCountry($country, $this->currentUser());
+
+                if ($imageFile['error'] === 0 && is_array($imageFiles)) {
+                    return $this->redirect()->toRoute('beheer/images', array('action' => 'crop'));
+                } else {
+                    return $this->redirect()->toRoute('beheer/countries');
+                }
             }
         }
 
