@@ -1,6 +1,6 @@
 <?php
 
-namespace Customers;
+namespace Projects;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -10,44 +10,27 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 return [
     'controllers' => [
         'factories' => [
-            Controller\CustomerController::class => Factory\CustomerControllerFactory::class,
-            Controller\CountryController::class => Factory\CountryControllerFactory::class,
+            Controller\ProjectController::class => Factory\ProjectControllerFactory::class,
         ],
     ],
     'service_manager' => [
         'invokables' => [
-            'Customers\Service\customerServiceInterface' => 'Customers\Service\customerService',
-            'Customers\Service\countryServiceInterface' => 'Customers\Service\countryService',
-            'Customers\Service\contactServiceInterface' => 'Customers\Service\contactService'
+            'Projects\Service\projectServiceInterface' => 'Projects\Service\projectService',
         ],
     ],
     // The following section is new and should be added to your file
     'router' => [
         'routes' => [
-            'customers' => [
+            'projects' => [
                 'type' => 'segment',
                 'options' => [
-                    'route' => '/customers[/:action][/:id]',
+                    'route' => '/projects[/:action][/:id]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\CustomerController::class,
-                        'action' => 'index',
-                    ],
-                ],
-            ],
-            'countries' => [
-                'type' => 'segment',
-                'options' => [
-                    'route' => '/countries[/:action][/:id]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\CountryController::class,
+                        'controller' => Controller\ProjectController::class,
                         'action' => 'index',
                     ],
                 ],
@@ -56,20 +39,16 @@ return [
     ],
     'view_manager' => [
         'template_path_stack' => [
-            'customers' => __DIR__ . '/../view',
+            'projects' => __DIR__ . '/../view',
         ],
     ],
     // The 'access_filter' key is used by the User module to restrict or permit
     // access to certain controller actions for unauthorized visitors.
     'access_filter' => [
         'controllers' => [
-            \Customers\Controller\CustomerController::class => [
+            \Projects\Controller\ProjectController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '+customer.manage']
-            ],
-            \Customers\Controller\CountryController::class => [
-                // to anyone.
-                ['actions' => '*', 'allow' => '+country.manage']
+                ['actions' => '*', 'allow' => '+project.manage']
             ],
         ]
     ],

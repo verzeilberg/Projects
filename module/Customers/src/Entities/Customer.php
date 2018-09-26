@@ -86,6 +86,16 @@ class Customer extends UnityOfWork {
      */
     private $country;
 
+    /**
+     * One Customer has Many Contacts.
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="customer")
+     */
+    private $contacts;
+
+    public function __construct() {
+        $this->contacts = new ArrayCollection();
+    }
+
     function getId() {
         return $this->id;
     }
@@ -140,6 +150,14 @@ class Customer extends UnityOfWork {
 
     function setCountry($country) {
         $this->country = $country;
+    }
+
+    function getContacts() {
+        return $this->contacts;
+    }
+
+    function setContacts($contacts) {
+        $this->contacts = $contacts;
     }
 
 }

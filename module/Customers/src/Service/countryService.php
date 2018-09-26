@@ -74,8 +74,8 @@ class countryService implements countryServiceInterface {
      *
      */
     public function newCountry() {
-        $countries = new Country();
-        return $countries;
+        $country = new Country();
+        return $country;
     }
 
     /**

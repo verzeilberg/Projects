@@ -4,47 +4,47 @@ $this->headTitle('Countries');
 $this->mainMenu()->setActiveItemId('countries');
 
 $this->pageBreadcrumbs()->setItems([
-            'Home'=>$this->url('home'),
-            'Manage Countries'=>$this->url('beheer/countries'),
-            ]);
+    'Home' => $this->url('home'),
+    'Manage Countries' => $this->url('beheer/countries'),
+]);
 ?>
 
 <h1>Manage Countries</h1>
 
 <p>
-<a class="btn btn-primary" href="
-    <?= $this->url('beheer/countries', ['action'=>'add']); ?>">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Country
-</a>
+    <a class="btn btn-primary" href="
+       <?= $this->url('beheer/countries', ['action' => 'add']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Country
+    </a>
 </p>
 
 <table class="table table-striped">
 
-   <tr>
+    <tr>
         <th>Name</th>
         <th>Date Created</th>
         <th></th>
     </tr>
-    
+
     <?php foreach ($countries as $country): ?>
-    
-    <tr>
-        <td>
-            <?= $this->escapeHtml($country->getName()); ?></a> 
-        </td>
-        <td><nobr><?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
-        <td>
-            <a class="btn btn-info" href="<?= $this->url('beheer/countries', 
-                    ['action'=>'edit', 'id'=>$country->getId()]); ?>">
-                <span class="glyphicon glyphicon-pencil" ></span> Edit
-            </a>
-            <a class="btn btn-info" href="<?= $this->url('beheer/countries', 
-                    ['action'=>'delete', 'id'=>$country->getId()]); ?>">
-                <span class="glyphicon glyphicon-trash" ></span> Delete
-            </a>
-        </td>    
-    </tr>
-        
+
+        <tr>
+            <td>
+                <?= $this->escapeHtml($country->getName()); ?></a> 
+            </td>
+            <td>
+                <?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')) : ''); ?>
+            </td>        
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('beheer/countries', ['action' => 'edit', 'id' => $country->getId()]); ?>">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="btn btn-info" href="<?= $this->url('beheer/countries', ['action' => 'delete', 'id' => $country->getId()]); ?>">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>    
+        </tr>
+
     <?php endforeach; ?>   
-    
+
 </table>

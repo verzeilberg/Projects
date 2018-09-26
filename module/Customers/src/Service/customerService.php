@@ -77,6 +77,34 @@ class customerService implements customerServiceInterface {
         $customer = new Customer();
         return $customer;
     }
+    
+        /**
+     *
+     * Save a customers to database
+     * @param       customer $customer object
+     * @param       user $user object
+     * @return      void
+     *
+     */
+    public function saveCustomer($customer, $user) {
+        $customer->setDateCreated(new \DateTime());
+        $customer->setCreatedBy($user);
+        $this->storeCustomer($customer);
+    }
+
+    /**
+     *
+     * Update a customers to database
+     * @param       customer $customer object
+     * @param       user $user object
+     * @return      void
+     *
+     */
+    public function updateCustomer($customer, $user) {
+        $customer->setDateChanged(new \DateTime());
+        $customer->setChangedBy($user);
+        $this->storeCustomer($customer);
+    }
 
     /**
      *
@@ -85,7 +113,7 @@ class customerService implements customerServiceInterface {
      * @return      void
      *
      */
-    public function saveCustomer($customer) {
+    public function storeCustomer($customer) {
         $this->entityManager->persist($customer);
         $this->entityManager->flush();
     }

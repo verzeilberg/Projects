@@ -30,6 +30,7 @@ return [
     'Zend\Router',
     'Zend\Validator',    
     'Customers',
+    'Projects',
     'User',
     'UploadFiles',
     'UploadImages',

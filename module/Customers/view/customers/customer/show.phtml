@@ -1,0 +1,84 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customer');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'Manage Customers' => $this->url('beheer/customers'),
+    'Show Customer' => $this->url('beheer/customers', ['action' => 'show'])
+]);
+?>
+<h1>Manage <?php echo $customer->getName(); ?></h1>
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <?php echo $customer->getVisitStreet(); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $customer->getVisitNumber(); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <?php echo $customer->getVisitPostalCode(); ?>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <?php echo $customer->getVisitCity(); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <?php echo '<img class="img-responsive " src="/' . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getCountry()->getCountryImage()->getAlt() . '" width="25" height="auto" />'; ?>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <table class="table table-bordered table-condensed">
+            <tr>
+                <th>Contacts</th>
+                <th class="text-right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus-square"></i></button></th>
+            </tr>
+            <tr>
+                <th>Surname</th>
+                <th>Lastname prefix</th>
+                <th>Lastname</th>
+                <th>Gender</th>
+                <th>&nbsp;</th>
+            </tr>
+            <?php foreach ($contacts AS $contact) { ?>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+            <?php } ?>
+        </table>
+    </div>
+</div>
+
+<!-- Contacts modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add contact</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                //Contact form
+                echo $this->partial('customers/customer/partials/contactForm.phtml', array('form' => $form));
+                ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
