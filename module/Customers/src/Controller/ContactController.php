@@ -56,18 +56,18 @@ class ContactController extends AbstractActionController {
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/customers');
         }
-        $contact = $this->cs->getContact($id);
+        $contact = $this->contactService->getContact($id);
         if (empty($contact)) {
             return $this->redirect()->toRoute('beheer/contacts');
         }
-        $form = $this->cs->createForm($contact);
+        $form = $this->contactService->createForm($contact);
 
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
 
             if ($form->isValid()) {
                 //Save Contact
-                $this->cs->updateContact($contact, $this->currentUser());
+                $this->contactService->updateContact($contact, $this->currentUser());
 
                 return $this->redirect()->toRoute('beheer/contacts');
             }
