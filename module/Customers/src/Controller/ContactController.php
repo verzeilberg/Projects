@@ -23,7 +23,7 @@ class ContactController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $contacts = $this->cs->getContacts();
+        $contacts = $this->contactService->getContacts();
 
         return new ViewModel(
                 array(
@@ -54,7 +54,7 @@ class ContactController extends AbstractActionController {
     public function editAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
-            return $this->redirect()->toRoute('beheer/contacts');
+            return $this->redirect()->toRoute('beheer/customers');
         }
         $contact = $this->cs->getContact($id);
         if (empty($contact)) {
@@ -86,17 +86,18 @@ class ContactController extends AbstractActionController {
      */
     public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
+        $id2 = (int) $this->params()->fromRoute('id2', 0);
         if (empty($id)) {
-            return $this->redirect()->toRoute('beheer/contacts');
+            return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
         }
-        $contact = $this->cs->getContact($id);
+        $contact = $this->contactService->getContact($id);
         if (empty($contact)) {
-            return $this->redirect()->toRoute('beheer/contacts');
+            return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
         }
 
-        $this->cs->deleteContact($contact);
+        $this->contactService->deleteContact($contact);
         $this->flashMessenger()->addSuccessMessage('Contact removed');
-        return $this->redirect()->toRoute('beheer/contacts');
+        return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
     }
 
 }

@@ -115,8 +115,9 @@ class CustomerController extends AbstractActionController {
             return $this->redirect()->toRoute('beheer/customers');
         }
 
-        $contacts = $this->contactService->getContacts();
+        $contacts = $this->contactService->getContactsByCustomer($id);
         $contact = $this->contactService->newContact();
+        $contact->setCustomer($customer);
         $form = $this->contactService->createForm($contact);
 
         if ($this->getRequest()->isPost()) {

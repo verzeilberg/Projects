@@ -83,7 +83,7 @@ return [
                     'contacts' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/contacts[[/]:action[/:id]]',
+                            'route' => '/contacts[[/]:action[/:id][/:id2]]',
                             'defaults' => [
                                 'controller' => \Customers\Controller\ContactController::class,
                                 'action' => 'index',

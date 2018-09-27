@@ -13,11 +13,15 @@ use Customers\Entities\Contact;
 
 class contactService implements contactServiceInterface {
 
+    private $entityManager;
+    private $customerService;
+
     /**
      * Constructor.
      */
-    public function __construct($entityManager) {
+    public function __construct($entityManager, $customerService) {
         $this->entityManager = $entityManager;
+        $this->customerService = $customerService;
     }
 
     /**
@@ -31,6 +35,20 @@ class contactService implements contactServiceInterface {
 
         $contacts = $this->entityManager->getRepository(Contact::class)
                 ->findBy([], ['dateCreated' => 'DESC']);
+
+        return $contacts;
+    }
+    
+    /**
+     *
+     * Get array of contacts
+     *
+     * @return      array
+     *
+     */
+    public function getContactsByCustomer($id) {
+        $contacts = $this->entityManager->getRepository(Contact::class)
+                ->findBy(['customer' => $id], ['dateCreated' => 'DESC']);
 
         return $contacts;
     }
@@ -119,8 +137,14 @@ class contactService implements contactServiceInterface {
         $contact = $this->newContact();
 
         foreach ($params AS $index => $param) {
-            $function = 'set' . ucfirst($index);
-            $contact->$function($param);
+            if ($index == 'customer') {
+                $customer = $this->customerService->getCustomer($param);
+                $function = 'set' . ucfirst($index);
+                $contact->$function($customer);
+            } else {
+                $function = 'set' . ucfirst($index);
+                $contact->$function($param);
+            }
         }
 
         return $contact;

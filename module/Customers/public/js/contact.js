@@ -4,6 +4,8 @@ $(document).ready(function () {
      */
     $("form#Contact").submit(function (e) {
         e.preventDefault();
+        var customerId = $('input[name=customer]').val();
+        
         $(function () {
             $('#contactModal').modal('toggle');
         });
@@ -16,7 +18,6 @@ $(document).ready(function () {
             cache: false,
             dataType: 'json',
             success: function (data) {
-                console.log(data.contact);
                 if (data.success === true) {
                     var row = '';
                     row += '<tr>';
@@ -37,7 +38,14 @@ $(document).ready(function () {
                     }
 
                     row += '<td>' + gender + '</td>';
-                    row += '<td></td>';
+                    row += '<td class="text-center">';
+                    row += '    <a class="btn btn-primary btn-sm" href="/beheer/contacts/edit/'+data.contact.id+'/'+customerId+'">';
+                    row += '        <i class="fas fa-edit"></i>';
+                    row += '    </a>';
+                    row += '    <a class="btn btn-primary btn-sm" href="/beheer/contacts/delete/'+data.contact.id+'/'+customerId+'">';
+                    row += '        <i class="fas fa-trash"></i>';
+                    row += '    </a>';
+                    row += '</td>';
                     row += '</tr>';
                     $('table#contactsTable > tbody').append(row);
                 } else {

@@ -21,7 +21,7 @@ class CustomerControllerFactory implements FactoryInterface {
         $vhm = $container->get('ViewHelperManager');
         $config = $container->get('config');
         $cs = new customerService($entityManager);
-        $contactService = new contactService($entityManager);
+        $contactService = new contactService($entityManager,  $cs);
         $imageService = new imageService($entityManager, $config);
         return new CustomerController($vhm, $entityManager, $cs, $contactService, $imageService);
     }

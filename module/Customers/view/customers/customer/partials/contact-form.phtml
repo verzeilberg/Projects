@@ -2,17 +2,17 @@
     <div class="col-sm-12 col-md-12 col-lg-12">
         <table class="table table-bordered table-condensed" id="contactsTable">
             <thead>
-            <tr>
-                <th colspan="4">Contacts</th>
-                <th class="text-right"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus-square"></i></button></th>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <th>Lastname prefix</th>
-                <th>Lastname</th>
-                <th>Gender</th>
-                <th>&nbsp;</th>
-            </tr>
+                <tr>
+                    <th colspan="4">Contacts</th>
+                    <th class="text-right"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus-square"></i></button></th>
+                </tr>
+                <tr>
+                    <th>Surname</th>
+                    <th>Lastname prefix</th>
+                    <th>Lastname</th>
+                    <th>Gender</th>
+                    <th class="text-center"><i class="fas fa-cogs"></i></th>
+                </tr>
             </thead>
             <tbody>
                 <?php foreach ($contacts AS $contact) { ?>
@@ -27,7 +27,15 @@
                             echo ($contact->getGender() == 3 ? '<i class="fas fa-genderless"></i>' : '');
                             ?>
                         </td>
-                        <td></td>
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'edit', 'id' => $contact->getId(), 'id2' => 1]); ?>">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'delete', 'id' => $contact->getId(), 'id2' => 1]); ?>">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -46,6 +54,8 @@
                 </button>
             </div>
             <?php echo $this->form()->openTag($form); ?>
+            <?php echo $this->formHidden($form->get('customer')); ?>
+
             <div class="modal-body">
                 <div class="form-group row">
                     <?php echo $this->formLabel($form->get('surName')); ?>
