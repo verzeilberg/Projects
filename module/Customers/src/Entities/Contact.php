@@ -19,7 +19,7 @@ class Contact extends UnityOfWork {
      * @ORM\Column(name="id", type="integer", length=11)
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
 
     /**
      * @ORM\Column(name="sur_name", type="string", length=255, nullable=false)
@@ -29,7 +29,7 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Sur name"})
      */
-    protected $surName;
+    public $surName;
 
     /**
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
@@ -39,7 +39,7 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Last name"})
      */
-    protected $lastName;
+    public $lastName;
 
     /**
      * @ORM\Column(name="last_name_prefix", type="string", length=50, nullable=true)
@@ -49,17 +49,23 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Last name prefix"})
      */
-    protected $lastNamePrefix;
+    public $lastNamePrefix;
 
     /**
      * @ORM\Column(name="gender", type="integer", length=1, nullable=false)
+     * @Annotation\Type("Zend\Form\Element\Radio")
      * @Annotation\Options({
      * "label": "Gender",
-     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"},
+     * "value_options":{
+     * "1":"Men",
+     * "2":"Woman",
+     * "3":"Unknown"
+     * }
      * })
-     * @Annotation\Attributes({"class":"form-control"})
+     * @Annotation\Attributes({"class":"radioItem"})
      */
-    protected $gender;
+    public $gender;
 
     /**
      * @ORM\Column(name="phone_number", type="integer", length=50, nullable=true)
@@ -69,7 +75,7 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Phone number"})
      */
-    protected $phoneNumber;
+    public $phoneNumber;
 
     /**
      * @ORM\Column(name="mobile_phone_number", type="integer", length=50, nullable=true)
@@ -79,7 +85,7 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Mobile phone number"})
      */
-    protected $mobilePhoneNumber;
+    public $mobilePhoneNumber;
 
     /**
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
@@ -89,14 +95,21 @@ class Contact extends UnityOfWork {
      * })
      * @Annotation\Attributes({"class":"form-control", "placeholder":"E-mail"})
      */
-    protected $email;
+    public $email;
 
     /**
      * Many Contacts have One Customer.
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="contacts")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
-    private $customer;
+    public $customer;
+    
+        /**
+     * One contact have One Image.
+     * @ORM\OneToOne(targetEntity="UploadImages\Entity\Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    public $contactImage;
 
     function getId() {
         return $this->id;

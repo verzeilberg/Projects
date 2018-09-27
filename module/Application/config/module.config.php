@@ -80,6 +80,16 @@ return [
                             ],
                         ],
                     ],
+                    'contacts' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/contacts[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Customers\Controller\ContactController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'images' => [
                         'type' => Segment::class,
                         'options' => [
@@ -129,6 +139,10 @@ return [
             \Customers\Controller\CountryController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+country.manage']
+            ],
+            \Customers\Controller\ContactController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+contact.manage']
             ],
         ]
     ],

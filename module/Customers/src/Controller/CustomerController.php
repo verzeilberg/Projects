@@ -11,12 +11,14 @@ class CustomerController extends AbstractActionController {
     protected $em;
     protected $cs;
     protected $contactService;
+    protected $imageService;
 
-    public function __construct($vhm, $em, $cs, $contactService) {
+    public function __construct($vhm, $em, $cs, $contactService, $imageService) {
         $this->vhm = $vhm;
         $this->em = $em;
         $this->cs = $cs;
         $this->contactService = $contactService;
+        $this->imageService = $imageService;
     }
 
     public function indexAction() {
@@ -100,6 +102,10 @@ class CustomerController extends AbstractActionController {
     }
 
     public function showAction() {
+        $this->vhm->get('headScript')->appendFile('/js/upload-files.js');
+        $this->vhm->get('headScript')->appendFile('/js/contact.js');
+        $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/customers');
@@ -128,7 +134,7 @@ class CustomerController extends AbstractActionController {
                 array(
             'customer' => $customer,
             'contacts' => $contacts,
-            'form' => $form
+            'form' => $form,
                 )
         );
     }

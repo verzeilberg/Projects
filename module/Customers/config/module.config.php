@@ -12,6 +12,7 @@ return [
         'factories' => [
             Controller\CustomerController::class => Factory\CustomerControllerFactory::class,
             Controller\CountryController::class => Factory\CountryControllerFactory::class,
+            Controller\ContactController::class => Factory\ContactControllerFactory::class
         ],
     ],
     'service_manager' => [
@@ -52,6 +53,20 @@ return [
                     ],
                 ],
             ],
+            'contacts' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/contacts[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ContactController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -70,6 +85,10 @@ return [
             \Customers\Controller\CountryController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+country.manage']
+            ],
+            \Customers\Controller\ContactController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+contact.manage']
             ],
         ]
     ],

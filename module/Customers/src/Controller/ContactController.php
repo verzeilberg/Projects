@@ -1,0 +1,102 @@
+<?php
+
+namespace Customers\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+
+class ContactController extends AbstractActionController {
+
+    protected $vhm;
+    protected $em;
+    protected $cs;
+    protected $contactService;
+    protected $imageService;
+
+    public function __construct($vhm, $em, $cs, $contactService, $imageService) {
+        $this->vhm = $vhm;
+        $this->em = $em;
+        $this->cs = $cs;
+        $this->contactService = $contactService;
+        $this->imageService = $imageService;
+    }
+
+    public function indexAction() {
+        $contacts = $this->cs->getContacts();
+
+        return new ViewModel(
+                array(
+            'contacts' => $contacts
+                )
+        );
+    }
+
+    public function addAction() {
+        $success = true;
+        $errorMessage = '';
+        if ($this->getRequest()->isPost()) {
+            $contact = $this->contactService->creatContactFromAjaxRequest($this->getRequest()->getPost()['formData']);
+            $this->contactService->saveContact($contact, $this->currentUser());
+        } else {
+            $success = false;
+            $errorMessage = 'There was no post!';
+        }
+        return new JsonModel(
+                array(
+            'success' => $success,
+            'errorMessage' => $errorMessage,
+            'contact' => $contact
+                )
+        );
+    }
+
+    public function editAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (empty($id)) {
+            return $this->redirect()->toRoute('beheer/contacts');
+        }
+        $contact = $this->cs->getContact($id);
+        if (empty($contact)) {
+            return $this->redirect()->toRoute('beheer/contacts');
+        }
+        $form = $this->cs->createForm($contact);
+
+        if ($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+
+            if ($form->isValid()) {
+                //Save Contact
+                $this->cs->updateContact($contact, $this->currentUser());
+
+                return $this->redirect()->toRoute('beheer/contacts');
+            }
+        }
+
+        return new ViewModel(
+                array(
+            'form' => $form
+                )
+        );
+    }
+
+    /**
+     * 
+     * Action to delete the contact from the database
+     */
+    public function deleteAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (empty($id)) {
+            return $this->redirect()->toRoute('beheer/contacts');
+        }
+        $contact = $this->cs->getContact($id);
+        if (empty($contact)) {
+            return $this->redirect()->toRoute('beheer/contacts');
+        }
+
+        $this->cs->deleteContact($contact);
+        $this->flashMessenger()->addSuccessMessage('Contact removed');
+        return $this->redirect()->toRoute('beheer/contacts');
+    }
+
+}

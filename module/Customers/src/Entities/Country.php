@@ -44,7 +44,7 @@ class Country extends UnityOfWork {
     /**
      * One country have One Image.
      * @ORM\OneToOne(targetEntity="UploadImages\Entity\Image")
-     * @ORM\JoinColumn(name="imageId", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $countryImage;
 

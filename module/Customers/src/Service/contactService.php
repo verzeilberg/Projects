@@ -49,8 +49,8 @@ class contactService implements contactServiceInterface {
 
         return $contact;
     }
-    
-        /**
+
+    /**
      *
      * Create form of an object
      *
@@ -77,8 +77,8 @@ class contactService implements contactServiceInterface {
         $contact = new Contact();
         return $contact;
     }
-    
-        /**
+
+    /**
      *
      * Save a contacts to database
      * @param       contact $contact object
@@ -104,6 +104,26 @@ class contactService implements contactServiceInterface {
         $contact->setDateChanged(new \DateTime());
         $contact->setChangedBy($user);
         $this->storeContact($contact);
+    }
+
+    /**
+     *
+     * Create a contact object and save to database
+     * @param       data $data array
+     * @return      $contact object
+     *
+     */
+    public function creatContactFromAjaxRequest($data) {
+        $params = [];
+        parse_str($data, $params);
+        $contact = $this->newContact();
+
+        foreach ($params AS $index => $param) {
+            $function = 'set' . ucfirst($index);
+            $contact->$function($param);
+        }
+
+        return $contact;
     }
 
     /**
