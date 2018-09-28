@@ -156,7 +156,7 @@ class CountryController extends AbstractActionController {
 
                         //Save blog image
                         $this->imageService->saveImage($image);
-                        //Add imgae to country
+                        //Add image to country
                         $country->setCountryImage($image);
                     }
                 } else {
@@ -174,10 +174,7 @@ class CountryController extends AbstractActionController {
             }
         }
 
-        $returnURL = [];
-        $returnURL['id'] = $id;
-        $returnURL['route'] = 'beheer/countries';
-        $returnURL['action'] = 'edit';
+        $returnURL = $this->cropImageService->createReturnURL('beheer/countries', 'edit', $id);
 
         return new ViewModel(
                 array(

@@ -23,28 +23,29 @@ $form->get('password')->setAttributes([
     ]);
 ?>
 
-<div class="row">
-    <div class="col-md-offset-4 col-md-3">
+<div class="row justify-content-md-center">
+    <div class="col-md-3">
         <form class="form-signin" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <h2 class="form-signin-heading mb-3">Please sign in</h2>
             <?php if ($isLoginError): ?>
             <div class="alert alert-warning" role="alert">
                 Incorrect login and/or password. 
-                <a href="<?= $this->url('reset-password') ?>">Forgot password?</a>
+                <a href="<?php echo $this->url('reset-password') ?>">Forgot password?</a>
             </div>
             <?php endif; ?>
-            <?= $this->formLabel($form->get('email')); ?>
-            <?= $this->formElement($form->get('email')); ?>
-            <?= $this->formLabel($form->get('password')); ?>
-            <?= $this->formElement($form->get('password')); ?>
+            <?php echo $this->formLabel($form->get('email')); ?>
+            <?php echo $this->formElement($form->get('email')); ?>
+            <br/>
+            <?php echo $this->formLabel($form->get('password')); ?>
+            <?php echo $this->formElement($form->get('password')); ?>
             <div class="checkbox">
                 <label>
-                    <?= $this->formElement($form->get('remember_me')); ?> Remember me
+                    <?php echo $this->formElement($form->get('remember_me')); ?> Remember me
                 </label>
             </div>
-            <?= $this->formElement($form->get('redirect_url')); ?>
-            <?= $this->formElement($form->get('csrf')) ?>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <?php echo $this->formElement($form->get('redirect_url')); ?>
+            <?php echo $this->formElement($form->get('csrf')) ?>
+            <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
         </form>
     </div>
 </div>

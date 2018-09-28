@@ -1,7 +1,7 @@
 <div class="row mt-2">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <table class="table table-bordered table-condensed" id="contactsTable">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th colspan="4">Contacts</th>
                     <th class="text-right"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus-square"></i></button></th>
@@ -28,13 +28,15 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'edit', 'id' => $contact->getId(), 'id2' => 1]); ?>">
+                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'edit', 'id' => $contact->getId()]); ?>">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'delete', 'id' => $contact->getId(), 'id2' => 1]); ?>">
+                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'delete', 'id' => $contact->getId()]); ?>">
                                 <i class="fas fa-trash"></i>
                             </a>
-
+                            <a class="btn btn-primary btn-sm" href="<?= $this->url('beheer/contacts', ['action' => 'show', 'id' => $contact->getId()]); ?>">
+                                <i class="fas fa-search-plus"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -113,11 +115,6 @@
                     </div>
                     <div class="col-sm-2 col-md-2 col-lg-2">
                         <?php echo (count($form->getMessages('email')) > 0 ? $form->getMessages('email')['isEmpty'] : '&nbsp;' ) ?>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-
                     </div>
                 </div>
             </div>

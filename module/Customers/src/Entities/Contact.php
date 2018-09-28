@@ -182,5 +182,15 @@ class Contact extends UnityOfWork {
     function setCustomer($customer) {
         $this->customer = $customer;
     }
+    
+    function getContactImage() {
+        return $this->contactImage;
+    }
+
+    function setContactImage($contactImage) {
+        $this->contactImage = $contactImage;
+    }
+
+
 
 }

@@ -12,22 +12,21 @@ $this->pageBreadcrumbs()->setItems([
 <h1>Manage Countries</h1>
 
 <p>
-    <a class="btn btn-primary" href="
+    <a class="btn btn-dark" href="
        <?= $this->url('beheer/countries', ['action' => 'add']); ?>">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Country
     </a>
 </p>
 
 <table class="table table-striped">
-
-    <tr>
-        <th>Name</th>
-        <th>Date Created</th>
-        <th></th>
-    </tr>
-
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Date Created</th>
+            <th></th>
+        </tr>
+    </thead>
     <?php foreach ($countries as $country): ?>
-
         <tr>
             <td>
                 <?= $this->escapeHtml($country->getName()); ?></a> 
@@ -36,15 +35,13 @@ $this->pageBreadcrumbs()->setItems([
                 <?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')) : ''); ?>
             </td>        
             <td>
-                <a class="btn btn-info" href="<?= $this->url('beheer/countries', ['action' => 'edit', 'id' => $country->getId()]); ?>">
+                <a class="btn btn-dark" href="<?= $this->url('beheer/countries', ['action' => 'edit', 'id' => $country->getId()]); ?>">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a class="btn btn-info" href="<?= $this->url('beheer/countries', ['action' => 'delete', 'id' => $country->getId()]); ?>">
+                <a class="btn btn-danger" href="<?= $this->url('beheer/countries', ['action' => 'delete', 'id' => $country->getId()]); ?>">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>    
         </tr>
-
     <?php endforeach; ?>   
-
 </table>

@@ -24,8 +24,8 @@ echo $this->partial('customers/country/partials/form.phtml', array('form' => $fo
 <!-- End image upload -->
 <div class="form-group row">
     <div class="col-sm-12 col-md-12 col-lg-12">
-        <button type="submit" id="submit" class="btn btn-success">Opslaan</button> 
-        <a href="<?php echo $this->url['beheer\countries']; ?>" class="btn btn-danger" title="Annuleren">Annuleren</a>
+        <button type="submit" id="submit" class="btn btn-dark">Save</button> 
+        <a href="<?php echo $this->url('beheer/countries') ?>" class="btn btn-danger" title="Annuleren">Cancel</a>
     </div>  
 </div>
 <?php echo $this->form()->closeTag($form); ?>

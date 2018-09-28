@@ -8,6 +8,7 @@ use Customers\Controller\ContactController;
 use Customers\Service\customerService;
 use Customers\Service\contactService;
 use UploadImages\Service\imageService;
+use UploadImages\Service\cropImageService;
 
 /**
  * This is the factory for AuthController. Its purpose is to instantiate the controller
@@ -23,7 +24,8 @@ class ContactControllerFactory implements FactoryInterface {
         $cs = new customerService($entityManager);
         $contactService = new contactService($entityManager, $cs);
         $imageService = new imageService($entityManager, $config);
-        return new ContactController($vhm, $entityManager, $cs, $contactService, $imageService);
+        $cropImageService = new cropImageService($entityManager, $config);
+        return new ContactController($vhm, $entityManager, $cs, $contactService, $imageService, $cropImageService);
     }
 
 }

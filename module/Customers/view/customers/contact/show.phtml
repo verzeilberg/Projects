@@ -1,0 +1,12 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customers');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'Manage Customers' => $this->url('beheer/customers'),
+    'Edit Contact' => $this->url('beheer/customers', ['action' => 'show', 'id' => $contact->getCustomer()->getId()])
+]);
+?>
+<h1>Show Contact</h1>

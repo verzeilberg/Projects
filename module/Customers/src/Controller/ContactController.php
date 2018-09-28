@@ -13,13 +13,15 @@ class ContactController extends AbstractActionController {
     protected $cs;
     protected $contactService;
     protected $imageService;
+    protected $cropImageService;
 
-    public function __construct($vhm, $em, $cs, $contactService, $imageService) {
+    public function __construct($vhm, $em, $cs, $contactService, $imageService, $cropImageService) {
         $this->vhm = $vhm;
         $this->em = $em;
         $this->cs = $cs;
         $this->contactService = $contactService;
         $this->imageService = $imageService;
+        $this->cropImageService = $cropImageService;
     }
 
     public function indexAction() {
@@ -52,30 +54,98 @@ class ContactController extends AbstractActionController {
     }
 
     public function editAction() {
+        $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
+        $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/customers');
         }
         $contact = $this->contactService->getContact($id);
         if (empty($contact)) {
-            return $this->redirect()->toRoute('beheer/contacts');
+            return $this->redirect()->toRoute('beheer/customers');
         }
+
         $form = $this->contactService->createForm($contact);
+
+        //Create new image object and form for image
+        $image = $this->imageService->createImage();
+        $formImage = $this->imageService->createImageForm($image);
 
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
+            $formImage->setData($this->getRequest()->getPost());
+            if ($form->isValid() && $formImage->isValid()) {
+                //Create image array and set it
+                $imageFile = [];
+                $imageFile = $this->getRequest()->getFiles('image');
+                //Upload image
+                if ($imageFile['error'] === 0) {
+                    //Upload original file
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    if (is_array($imageFiles)) {
+                        $folderOriginal = $imageFiles['imageType']->getFolder();
+                        $fileName = $imageFiles['imageType']->getFileName();
+                        $image = $imageFiles['image'];
+                        //Upload thumb 150x100
+                        $imageFiles = $this->cropImageService->resizeAndCropImage('public/' . $folderOriginal . $fileName, 'public/img/userFiles/contacts/thumb/', 100, 50, '100x50', $image);
+                        //Create 438x625 crop
+                        $imageFiles = $this->cropImageService->createCropArray('438x625', $folderOriginal, $fileName, 'public/img/userFiles/contacts/438x625/', 438, 625, $image);
+                        $image = $imageFiles['image'];
+                        $cropImages = $imageFiles['cropImages'];
+                        //Create return URL
+                        $returnURL = $this->cropImageService->createReturnURL('beheer/contacts', 'edit', $id);
 
-            if ($form->isValid()) {
+                        //Create session container for crop
+                        $this->cropImageService->createContainerImages($cropImages, $returnURL);
+
+                        //Save blog image
+                        $this->imageService->saveImage($image);
+                        //Add image to contact
+                        $contact->setContactImage($image);
+                    }
+                } else {
+                    $this->flashMessenger()->addErrorMessage($imageFiles);
+                }
+                //End upload image
                 //Save Contact
                 $this->contactService->updateContact($contact, $this->currentUser());
 
-                return $this->redirect()->toRoute('beheer/contacts');
+                if ($imageFile['error'] === 0 && is_array($imageFiles)) {
+                    return $this->redirect()->toRoute('beheer/images', array('action' => 'crop'));
+                } else {
+                    return $this->redirect()->toRoute('beheer/contacts', ['action' => 'edit', 'id' => $id]);
+                }
             }
+        }
+
+        //Create return url
+        $returnURL = $this->cropImageService->createReturnURL('beheer/contacts', 'edit', $id);
+
+        return new ViewModel(
+                array(
+            'form' => $form,
+            'image' => $image,
+            'formImage' => $formImage,
+            'returnURL' => $returnURL,
+            'customer' => $contact->getCustomer()
+                )
+        );
+    }
+
+    public function showAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (empty($id)) {
+            return $this->redirect()->toRoute('beheer/customers');
+        }
+        $contact = $this->contactService->getContact($id);
+        if (empty($contact)) {
+            return $this->redirect()->toRoute('beheer/customers');
         }
 
         return new ViewModel(
                 array(
-            'form' => $form
+            'contact' => $contact
                 )
         );
     }
@@ -86,18 +156,20 @@ class ContactController extends AbstractActionController {
      */
     public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
-        $id2 = (int) $this->params()->fromRoute('id2', 0);
         if (empty($id)) {
-            return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
+            return $this->redirect()->toRoute('beheer/customers');
         }
         $contact = $this->contactService->getContact($id);
         if (empty($contact)) {
-            return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
+            return $this->redirect()->toRoute('beheer/customers');
         }
+
+        //Get customer ID for redirect
+        $customerId = $contact->getCustomer()->getId();
 
         $this->contactService->deleteContact($contact);
         $this->flashMessenger()->addSuccessMessage('Contact removed');
-        return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $id2]);
+        return $this->redirect()->toRoute('beheer/customers', ['action' => 'show', 'id' => $customerId]);
     }
 
 }
