@@ -59,7 +59,7 @@ class CountryController extends AbstractActionController {
                 //Upload image
                 if ($imageFile['error'] === 0) {
                     //Upload original file
-                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, 'default', 'original', $image, 1);
 
                     if (is_array($imageFiles)) {
                         $folderOriginal = $imageFiles['imageType']->getFolder();
@@ -81,9 +81,11 @@ class CountryController extends AbstractActionController {
                         $this->imageService->saveImage($image);
                         //Add imgae to country
                         $country->setCountryImage($image);
+                    } else {
+                        $this->flashMessenger()->addErrorMessage($imageFiles);
                     }
                 } else {
-                    $this->flashMessenger()->addSuccessMessage($imageFiles);
+                    $this->flashMessenger()->addErrorMessage('Image not uploaded');
                 }
                 //End upload image
                 //Save Country
@@ -137,7 +139,7 @@ class CountryController extends AbstractActionController {
                 //Upload image
                 if ($imageFile['error'] === 0) {
                     //Upload original file
-                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, 'default', 'original', $image, 1);
                     if (is_array($imageFiles)) {
                         $folderOriginal = $imageFiles['imageType']->getFolder();
                         $fileName = $imageFiles['imageType']->getFileName();
@@ -158,9 +160,11 @@ class CountryController extends AbstractActionController {
                         $this->imageService->saveImage($image);
                         //Add image to country
                         $country->setCountryImage($image);
+                    } else {
+                        $this->flashMessenger()->addErrorMessage($imageFiles);
                     }
                 } else {
-                    $this->flashMessenger()->addSuccessMessage($imageFiles);
+                    $this->flashMessenger()->addErrorMessage('Image not uploaded');
                 }
                 //End upload image
                 //Save Country
@@ -200,7 +204,13 @@ class CountryController extends AbstractActionController {
         if (empty($country)) {
             return $this->redirect()->toRoute('beheer/countries');
         }
-
+        //Delete linked images
+        $image = $country->getCountryImage();
+        if (is_object($image)) {
+            $this->imageService->deleteImage($image);
+        }
+        
+        
         $this->cs->deleteCountry($country);
         $this->flashMessenger()->addSuccessMessage('Country removed');
         return $this->redirect()->toRoute('beheer/countries');

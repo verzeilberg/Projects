@@ -68,7 +68,6 @@ class ContactController extends AbstractActionController {
 
         $form = $this->contactService->createForm($contact);
 
-        //Create new image object and form for image
         $image = $this->imageService->createImage();
         $formImage = $this->imageService->createImageForm($image);
 
@@ -79,10 +78,11 @@ class ContactController extends AbstractActionController {
                 //Create image array and set it
                 $imageFile = [];
                 $imageFile = $this->getRequest()->getFiles('image');
+                
                 //Upload image
                 if ($imageFile['error'] === 0) {
                     //Upload original file
-                    $imageFiles = $this->cropImageService->uploadImage($imageFile, NULL, 'original', $image, 1);
+                    $imageFiles = $this->cropImageService->uploadImage($imageFile, 'contact', 'original', $image, 1);
                     if (is_array($imageFiles)) {
                         $folderOriginal = $imageFiles['imageType']->getFolder();
                         $fileName = $imageFiles['imageType']->getFileName();
@@ -103,9 +103,11 @@ class ContactController extends AbstractActionController {
                         $this->imageService->saveImage($image);
                         //Add image to contact
                         $contact->setContactImage($image);
+                    } else {
+                        $this->flashMessenger()->addErrorMessage($imageFiles);
                     }
                 } else {
-                    $this->flashMessenger()->addErrorMessage($imageFiles);
+                    $this->flashMessenger()->addErrorMessage('Image not uploaded');
                 }
                 //End upload image
                 //Save Contact

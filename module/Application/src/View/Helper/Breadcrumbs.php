@@ -84,7 +84,7 @@ class Breadcrumbs extends AbstractHelper
         $result = $isActive?'<li class="breadcrumb-item active" aria-current="page">':'<li class="breadcrumb-item">';
         
         if (!$isActive)
-            $result .= '<a href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
+            $result .= '<a class="text-dark" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
         else
             $result .= $escapeHtml($label);
                     

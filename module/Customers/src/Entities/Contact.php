@@ -58,17 +58,17 @@ class Contact extends UnityOfWork {
      * "label": "Gender",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"},
      * "value_options":{
-     * "1":"Men",
+     * "1":"Man",
      * "2":"Woman",
      * "3":"Unknown"
      * }
      * })
      * @Annotation\Attributes({"class":"radioItem"})
      */
-    public $gender;
+    public $gender = 3;
 
     /**
-     * @ORM\Column(name="phone_number", type="integer", length=50, nullable=true)
+     * @ORM\Column(name="phone_number", type="string", length=50, nullable=true)
      * @Annotation\Options({
      * "label": "Phone number",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
@@ -78,7 +78,7 @@ class Contact extends UnityOfWork {
     public $phoneNumber;
 
     /**
-     * @ORM\Column(name="mobile_phone_number", type="integer", length=50, nullable=true)
+     * @ORM\Column(name="mobile_phone_number", type="string", length=50, nullable=true)
      * @Annotation\Options({
      * "label": "Mobile phone number",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
@@ -88,7 +88,7 @@ class Contact extends UnityOfWork {
     public $mobilePhoneNumber;
 
     /**
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * @Annotation\Options({
      * "label": "E-mail",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}

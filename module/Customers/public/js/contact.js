@@ -37,13 +37,13 @@ $(document).ready(function () {
 
                     row += '<td>' + gender + '</td>';
                     row += '<td class="text-center">';
-                    row += '    <a class="btn btn-primary btn-sm" href="/beheer/contacts/edit/'+data.contact.id+'">';
+                    row += '    <a class="btn btn-dark btn-sm" href="/beheer/contacts/edit/'+data.contact.id+'">';
                     row += '        <i class="fas fa-edit"></i>';
                     row += '    </a>';
-                    row += '    <a class="btn btn-primary btn-sm" href="/beheer/contacts/delete/'+data.contact.id+'">';
+                    row += '    <a class="btn btn-danger btn-sm" href="/beheer/contacts/delete/'+data.contact.id+'">';
                     row += '        <i class="fas fa-trash"></i>';
                     row += '    </a>';
-                    row += '    <a class="btn btn-primary btn-sm" href="/beheer/contacts/show/'+data.contact.id+'">';
+                    row += '    <a class="btn btn-dark btn-sm" href="/beheer/contacts/show/'+data.contact.id+'">';
                     row += '        <i class="fas fa-search-plus"></i>';
                     row += '    </a>';
                     row += '</td>';
