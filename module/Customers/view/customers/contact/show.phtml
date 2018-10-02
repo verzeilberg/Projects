@@ -9,4 +9,53 @@ $this->pageBreadcrumbs()->setItems([
     'Edit Contact' => $this->url('beheer/customers', ['action' => 'show', 'id' => $contact->getCustomer()->getId()])
 ]);
 ?>
-<h1>Show Contact</h1>
+<div class="row">
+    <h1 class="col">Show Contact</h1>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <?php echo '<img class="img-fluid rounded" src="/' . $image->getImageTypes('438x625')[0]->getFolder() . $image->getImageTypes('438x625')[0]->getFileName() . '?v=' . rand() . '" alt="' . $image->getAlt() . '"/>'; ?>
+    </div>
+    <div class="col-sm-9 col-md-9 col-lg-9">
+        <div class="row">
+            <label class="col font-weight-bold">Surname</label>
+            <div class="col"><?php echo $contact->getSurName(); ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Lastname</label>
+            <div class="col"><?php echo $contact->getLastName() . (!empty($contact->getLastNamePrefix()) ? ', ' : '') . $contact->getLastNamePrefix() ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Gender</label>
+            <div class="col">
+                <?php
+                echo ($contact->getGender() == 1 ? '<i class="fas fa-male"></i>' : '');
+                echo ($contact->getGender() == 2 ? '<i class="fas fa-female"></i>' : '');
+                echo ($contact->getGender() == 3 ? '<i class="fas fa-genderless"></i>' : '');
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Phonenumber</label>
+            <div class="col"><?php echo $contact->getPhoneNumber(); ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Mobile phonenumber</label>
+            <div class="col"><?php echo $contact->getMobilePhoneNumber(); ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Email</label>
+            <div class="col"><?php echo $contact->getEmail(); ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Function</label>
+            <div class="col"><?php echo $contact->getFunction(); ?></div>
+        </div>
+        <div class="row">
+            <label class="col font-weight-bold">Remarks</label>
+        </div>
+        <div class="row">
+            <div class="col"><?php echo $contact->getRemarks(); ?></div>
+        </div>
+    </div>
+</div>

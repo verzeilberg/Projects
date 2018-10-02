@@ -66,9 +66,12 @@ class ContactController extends AbstractActionController {
             return $this->redirect()->toRoute('beheer/customers');
         }
 
-        $form = $this->contactService->createForm($contact);
+        $image = $contact->getContactImage();
+        if (empty($image)) {
+            $image = $this->imageService->createImage();
+        }
 
-        $image = $this->imageService->createImage();
+        $form = $this->contactService->createForm($contact);
         $formImage = $this->imageService->createImageForm($image);
 
         if ($this->getRequest()->isPost()) {
@@ -78,7 +81,7 @@ class ContactController extends AbstractActionController {
                 //Create image array and set it
                 $imageFile = [];
                 $imageFile = $this->getRequest()->getFiles('image');
-                
+
                 //Upload image
                 if ($imageFile['error'] === 0) {
                     //Upload original file
@@ -145,9 +148,12 @@ class ContactController extends AbstractActionController {
             return $this->redirect()->toRoute('beheer/customers');
         }
 
+        $image = $contact->getContactImage();
+
         return new ViewModel(
                 array(
-            'contact' => $contact
+            'contact' => $contact,
+            'image' => $image
                 )
         );
     }

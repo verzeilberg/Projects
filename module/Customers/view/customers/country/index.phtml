@@ -8,40 +8,64 @@ $this->pageBreadcrumbs()->setItems([
     'Manage Countries' => $this->url('beheer/countries'),
 ]);
 ?>
-
-<h1>Manage Countries</h1>
-
-<p>
-    <a class="btn btn-dark" href="
-       <?= $this->url('beheer/countries', ['action' => 'add']); ?>">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Country
-    </a>
-</p>
-
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Name</th>
-            <th>Date Created</th>
-            <th></th>
-        </tr>
-    </thead>
-    <?php foreach ($countries as $country): ?>
-        <tr>
-            <td>
-                <?= $this->escapeHtml($country->getName()); ?></a> 
-            </td>
-            <td>
-                <?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')) : ''); ?>
-            </td>        
-            <td>
-                <a class="btn btn-dark" href="<?= $this->url('beheer/countries', ['action' => 'edit', 'id' => $country->getId()]); ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="btn btn-danger" href="<?= $this->url('beheer/countries', ['action' => 'delete', 'id' => $country->getId()]); ?>">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </td>    
-        </tr>
-    <?php endforeach; ?>   
-</table>
+<div class="row">
+    <h1 class="col">Manage Countries</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-dark" href="
+           <?= $this->url('beheer/countries', ['action' => 'add']); ?>">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Country
+        </a>
+    </div>
+    <div class="col text-right">
+        <form class="form-inline" name="searchCountry" method="post" action="<?php echo $this->url('beheer/countries'); ?>">
+            <div class="col text-right" style="padding-right:0;">
+                <input class="form-control" name="search" value="<?php echo $searchString; ?>" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Shortname</th>
+                    <th>Name</th>
+                    <th>Date Created</th>
+                    <th class="text-center"><i class="far fa-flag"></i></th>
+                    <th class="text-center"><i class="fas fa-cogs"></i></th>
+                </tr>
+            </thead>
+            <?php foreach ($countries as $country): ?>
+                <tr>
+                    <td>
+                        <?= $this->escapeHtml($country->getShortName()); ?></a> 
+                    </td>
+                    <td>
+                        <?= $this->escapeHtml($country->getName()); ?></a> 
+                    </td>
+                    <td>
+                        <?= (is_object($country->getDateCreated()) ? $this->escapeHtml($country->getDateCreated()->format('Y-m-d')) : ''); ?>
+                    </td> 
+                    <td class="text-center">
+                        <?php
+                        $image = $country->getCountryImage();
+                        echo '<img class="img-responsive " src="/' . $image->getImageTypes('450x300')[0]->getFolder() . $image->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $image->getAlt() . '" width="25" height="auto" />';
+                        ?>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-dark" href="<?= $this->url('beheer/countries', ['action' => 'edit', 'id' => $country->getId()]); ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="<?= $this->url('beheer/countries', ['action' => 'delete', 'id' => $country->getId()]); ?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>    
+                </tr>
+            <?php endforeach; ?>   
+        </table>
+    </div>
+</div>

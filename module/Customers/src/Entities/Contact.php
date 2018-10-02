@@ -66,6 +66,16 @@ class Contact extends UnityOfWork {
      * @Annotation\Attributes({"class":"radioItem"})
      */
     public $gender = 3;
+    
+        /**
+     * @ORM\Column(name="function", type="string", length=255, nullable=true)
+     * @Annotation\Options({
+     * "label": "function",
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "placeholder":"Function"})
+     */
+    public $function;
 
     /**
      * @ORM\Column(name="phone_number", type="string", length=50, nullable=true)
@@ -97,6 +107,16 @@ class Contact extends UnityOfWork {
      */
     public $email;
 
+        /**
+     * @ORM\Column(name="remarks", type="text", nullable=true)
+     * @Annotation\Options({
+     * "label": "Remarks",
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "placeholder":"Remarks"})
+     */
+    public $remarks;
+    
     /**
      * Many Contacts have One Customer.
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="contacts")
@@ -189,6 +209,22 @@ class Contact extends UnityOfWork {
 
     function setContactImage($contactImage) {
         $this->contactImage = $contactImage;
+    }
+
+    function getFunction() {
+        return $this->function;
+    }
+
+    function setFunction($function) {
+        $this->function = $function;
+    }
+
+    function getRemarks() {
+        return $this->remarks;
+    }
+
+    function setRemarks($remarks) {
+        $this->remarks = $remarks;
     }
 
 

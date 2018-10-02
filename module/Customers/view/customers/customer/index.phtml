@@ -8,46 +8,60 @@ $this->pageBreadcrumbs()->setItems([
     'Manage Customers' => $this->url('beheer/customers'),
 ]);
 ?>
-
-<h1>Manage Customers</h1>
-
-<p>
-    <a class="btn btn-dark" href="
-       <?= $this->url('beheer/customers', ['action' => 'add']); ?>">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer
-    </a>
-</p>
-<table class="table table-striped table-condensed">
-    <thead class="thead-dark">
-        <tr>
-            <th>Name</th>
-            <th>Date Created</th>
-            <th>Country</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-    <?php foreach ($customers as $customer): ?>
-        <tr>
-            <td>
-                <?= $this->escapeHtml($customer->getName()); ?></a> 
-            </td>
-            <td>
-                <?= (is_object($customer->getDateCreated()) ? $this->escapeHtml($customer->getDateCreated()->format('Y-m-d H:m')) : ''); ?>
-            </td>        
-            <td class="align-center">
-                <?php echo '<img class="img-responsive " src="/' . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getCountry()->getCountryImage()->getAlt() . '" width="25" height="auto" />'; ?>
-            </td>        
-            <td>
-                <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'edit', 'id' => $customer->getId()]); ?>">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'show', 'id' => $customer->getId()]); ?>">
-                    <i class="fas fa-search-plus"></i>
-                </a>
-                <a class="btn btn-danger btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'delete', 'id' => $customer->getId()]); ?>">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </td>    
-        </tr>
-    <?php endforeach; ?>   
-</table>
+<div class="row">
+    <h1 class="col">Manage Customers</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-dark" href="
+           <?= $this->url('beheer/customers', ['action' => 'add']); ?>">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer
+        </a>
+    </div>
+    <div class="col text-right">
+        <form class="form-inline" name="searchCustomer" method="post" action="<?php echo $this->url('beheer/customers'); ?>">
+            <div class="col text-right" style="padding-right:0;">
+                <input class="form-control" name="search" value="<?php echo $searchString; ?>" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-striped table-condensed">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Date Created</th>
+                    <th>Country</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <?php foreach ($customers as $customer): ?>
+                <tr>
+                    <td>
+                        <?= $this->escapeHtml($customer->getName()); ?></a> 
+                    </td>
+                    <td>
+                        <?= (is_object($customer->getDateCreated()) ? $this->escapeHtml($customer->getDateCreated()->format('Y-m-d H:m')) : ''); ?>
+                    </td>        
+                    <td class="align-center">
+                        <?php echo '<img class="img-responsive " src="/' . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getCountry()->getCountryImage()->getAlt() . '" width="25" height="auto" />'; ?>
+                    </td>        
+                    <td>
+                        <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'edit', 'id' => $customer->getId()]); ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'show', 'id' => $customer->getId()]); ?>">
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'delete', 'id' => $customer->getId()]); ?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>    
+                </tr>
+            <?php endforeach; ?>   
+        </table>
+    </div>
+</div>

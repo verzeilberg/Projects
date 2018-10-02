@@ -24,9 +24,16 @@ class CustomerController extends AbstractActionController {
     public function indexAction() {
         $customers = $this->cs->getCustomers();
 
+        $searchString = '';
+        if ($this->getRequest()->isPost()) {
+            $searchString = $this->getRequest()->getPost('search');
+            $customers = $this->cs->searchCustomers($searchString);
+        }
+
         return new ViewModel(
                 array(
-            'customers' => $customers
+            'customers' => $customers,
+            'searchString' => $searchString
                 )
         );
     }

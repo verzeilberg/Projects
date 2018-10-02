@@ -49,6 +49,25 @@ class countryService implements countryServiceInterface {
 
         return $countries;
     }
+    
+        /**
+     *
+     * Get array of countries
+     * @var $searchString string to search for
+     *
+     * @return      array
+     *
+     */
+    public function searchCountries($searchString) {
+        $qb = $this->entityManager->getRepository(Country::class)->createQueryBuilder('c');
+        $orX = $qb->expr()->orX();
+        $orX->add($qb->expr()->like('c.name', $qb->expr()->literal("%$searchString%")));
+        $orX->add($qb->expr()->like('c.shortName', $qb->expr()->literal("%$searchString%")));
+        $qb->where($orX);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
 
     /**
      *

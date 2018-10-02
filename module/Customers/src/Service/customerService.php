@@ -49,8 +49,28 @@ class customerService implements customerServiceInterface {
 
         return $customer;
     }
-    
-        /**
+
+    /**
+     *
+     * Get array of customers
+     * @var $searchString string to search for
+     *
+     * @return      array
+     *
+     */
+    public function searchCustomers($searchString) {
+        $qb = $this->entityManager->getRepository(Customer::class)->createQueryBuilder('c');
+        $qb->leftJoin('c.country', 'ctry');
+        $orX = $qb->expr()->orX();
+        $orX->add($qb->expr()->like('c.name', $qb->expr()->literal("%$searchString%")));
+        $orX->add($qb->expr()->like('ctry.name', $qb->expr()->literal("%$searchString%")));
+        $qb->where($orX);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
+
+    /**
      *
      * Create form of an object
      *
@@ -77,8 +97,8 @@ class customerService implements customerServiceInterface {
         $customer = new Customer();
         return $customer;
     }
-    
-        /**
+
+    /**
      *
      * Save a customers to database
      * @param       customer $customer object

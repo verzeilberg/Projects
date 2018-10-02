@@ -26,10 +26,16 @@ class CountryController extends AbstractActionController {
 
     public function indexAction() {
         $countries = $this->cs->getCountries();
+        $searchString = '';
+        if ($this->getRequest()->isPost()) {
+            $searchString = $this->getRequest()->getPost('search');
+            $countries = $this->cs->searchCountries($searchString);
+        }
 
         return new ViewModel(
                 array(
-            'countries' => $countries
+            'countries' => $countries,
+            'searchString' => $searchString
                 )
         );
     }
@@ -209,8 +215,8 @@ class CountryController extends AbstractActionController {
         if (is_object($image)) {
             $this->imageService->deleteImage($image);
         }
-        
-        
+
+
         $this->cs->deleteCountry($country);
         $this->flashMessenger()->addSuccessMessage('Country removed');
         return $this->redirect()->toRoute('beheer/countries');
