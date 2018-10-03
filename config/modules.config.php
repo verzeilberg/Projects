@@ -34,6 +34,7 @@ return [
     'User',
     'UploadFiles',
     'UploadImages',
+    'Translator',
     'AssetManager',
     'Application'
 ];

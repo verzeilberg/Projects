@@ -42,7 +42,8 @@
             "Projects\\": "module/Projects/src/",
             "User\\": "module/User/src/",
             "UploadFiles\\": "module/UploadFiles/src/",
-            "UploadImages\\": "module/UploadImages/src/"
+            "UploadImages\\": "module/UploadImages/src/",
+            "Translator\\": "module/Translator/src/"
         }
     },
     "autoload-dev": {

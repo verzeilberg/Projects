@@ -4,3 +4,6 @@
 [submodule "UploadImages"]
     path = module/UploadImages
     url = https://github.com/verzeilberg/UploadImages.git
+[submodule "Translator"]
+    path = module/Translator
+    url = https://github.com/verzeilberg/Translator.git

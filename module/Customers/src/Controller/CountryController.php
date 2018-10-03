@@ -25,6 +25,7 @@ class CountryController extends AbstractActionController {
     }
 
     public function indexAction() {
+        
         $countries = $this->cs->getCountries();
         $searchString = '';
         if ($this->getRequest()->isPost()) {
