@@ -72,19 +72,19 @@ class Customer extends UnityOfWork {
     protected $visitPostalCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Country")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Translator\Entities\Language")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
      * @Annotation\Options({
      * "empty_option": "---",
-     * "target_class":"Customers\Entities\Country",
+     * "target_class":"Translator\Entities\Language",
      * "property": "shortName",
-     * "label": "Country",
+     * "label": "Language",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
      * @Annotation\Attributes({"class":"form-control"})
      */
-    private $country;
+    private $language;
 
     /**
      * One Customer has Many Contacts.
@@ -128,8 +128,8 @@ class Customer extends UnityOfWork {
         return $this->visitPostalCode;
     }
 
-    function getCountry() {
-        return $this->country;
+    function getLanguage() {
+        return $this->language;
     }
 
     function setVisitStreet($visitStreet) {
@@ -148,8 +148,8 @@ class Customer extends UnityOfWork {
         $this->visitPostalCode = $visitPostalCode;
     }
 
-    function setCountry($country) {
-        $this->country = $country;
+    function setLanguage($language) {
+        $this->language = $language;
     }
 
     function getContacts() {

@@ -70,12 +70,12 @@ return [
                             ],
                         ],
                     ],
-                    'countries' => [
+                    'languages' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/countries[[/]:action[/:id]]',
+                            'route' => '/languages[[/]:action[/:id]]',
                             'defaults' => [
-                                'controller' => \Customers\Controller\CountryController::class,
+                                'controller' => \Translator\Controller\LanguageController::class,
                                 'action' => 'index',
                             ],
                         ],
@@ -136,13 +136,13 @@ return [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+customer.manage']
             ],
-            \Customers\Controller\CountryController::class => [
-                // to anyone.
-                ['actions' => '*', 'allow' => '+country.manage']
-            ],
             \Customers\Controller\ContactController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+contact.manage']
+            ],
+            \Translator\Controller\LanguageController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+language.manage']
             ],
         ]
     ],

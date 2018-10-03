@@ -13,9 +13,13 @@ $this->pageBreadcrumbs()->setItems([
     <h1 class="col">Show Contact</h1>
 </div>
 <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <?php echo '<img class="img-fluid rounded" src="/' . $image->getImageTypes('438x625')[0]->getFolder() . $image->getImageTypes('438x625')[0]->getFileName() . '?v=' . rand() . '" alt="' . $image->getAlt() . '"/>'; ?>
-    </div>
+    <?php if (is_object($image)) { ?>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <?php
+            echo '<img class="img-fluid rounded" src="/' . $image->getImageTypes('438x625')[0]->getFolder() . $image->getImageTypes('438x625')[0]->getFileName() . '?v=' . rand() . '" alt="' . $image->getAlt() . '"/>';
+            ?>
+        </div>
+    <?php } ?>
     <div class="col-sm-9 col-md-9 col-lg-9">
         <div class="row">
             <label class="col font-weight-bold">Surname</label>

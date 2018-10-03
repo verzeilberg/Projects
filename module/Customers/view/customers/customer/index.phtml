@@ -34,7 +34,7 @@ $this->pageBreadcrumbs()->setItems([
                 <tr>
                     <th>Name</th>
                     <th>Date Created</th>
-                    <th>Country</th>
+                    <th>Language</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -47,7 +47,7 @@ $this->pageBreadcrumbs()->setItems([
                         <?= (is_object($customer->getDateCreated()) ? $this->escapeHtml($customer->getDateCreated()->format('Y-m-d H:m')) : ''); ?>
                     </td>        
                     <td class="align-center">
-                        <?php echo '<img class="img-responsive " src="/' . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getCountry()->getCountryImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getCountry()->getCountryImage()->getAlt() . '" width="25" height="auto" />'; ?>
+                        <?php echo '<img class="img-responsive " src="/' . $customer->getLanguage()->getLanguageImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getLanguage()->getLanguageImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getLanguage()->getLanguageImage()->getAlt() . '" width="25" height="auto" />'; ?>
                     </td>        
                     <td>
                         <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/customers', ['action' => 'edit', 'id' => $customer->getId()]); ?>">

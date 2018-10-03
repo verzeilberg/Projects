@@ -85,11 +85,11 @@ class NavManager {
                 ];
             }
             
-            if ($this->rbacManager->isGranted(null, 'country.manage')) {
+            if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $items[] = [
-                    'id' => 'countries',
-                    'label' => 'Countries',
-                    'link' => $url('beheer/countries')
+                    'id' => 'languages',
+                    'label' => 'Languages',
+                    'link' => $url('beheer/languages')
                 ];
             }
 

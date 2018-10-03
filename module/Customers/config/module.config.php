@@ -11,14 +11,12 @@ return [
     'controllers' => [
         'factories' => [
             Controller\CustomerController::class => Factory\CustomerControllerFactory::class,
-            Controller\CountryController::class => Factory\CountryControllerFactory::class,
             Controller\ContactController::class => Factory\ContactControllerFactory::class
         ],
     ],
     'service_manager' => [
         'invokables' => [
             'Customers\Service\customerServiceInterface' => 'Customers\Service\customerService',
-            'Customers\Service\countryServiceInterface' => 'Customers\Service\countryService',
             'Customers\Service\contactServiceInterface' => 'Customers\Service\contactService'
         ],
     ],
@@ -35,20 +33,6 @@ return [
                     ],
                     'defaults' => [
                         'controller' => Controller\CustomerController::class,
-                        'action' => 'index',
-                    ],
-                ],
-            ],
-            'countries' => [
-                'type' => 'segment',
-                'options' => [
-                    'route' => '/countries[/:action][/:id]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\CountryController::class,
                         'action' => 'index',
                     ],
                 ],
@@ -81,10 +65,6 @@ return [
             \Customers\Controller\CustomerController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+customer.manage']
-            ],
-            \Customers\Controller\CountryController::class => [
-                // to anyone.
-                ['actions' => '*', 'allow' => '+country.manage']
             ],
             \Customers\Controller\ContactController::class => [
                 // to anyone.

@@ -60,10 +60,10 @@ class customerService implements customerServiceInterface {
      */
     public function searchCustomers($searchString) {
         $qb = $this->entityManager->getRepository(Customer::class)->createQueryBuilder('c');
-        $qb->leftJoin('c.country', 'ctry');
+        $qb->leftJoin('c.language', 'lang');
         $orX = $qb->expr()->orX();
         $orX->add($qb->expr()->like('c.name', $qb->expr()->literal("%$searchString%")));
-        $orX->add($qb->expr()->like('ctry.name', $qb->expr()->literal("%$searchString%")));
+        $orX->add($qb->expr()->like('lang.name', $qb->expr()->literal("%$searchString%")));
         $qb->where($orX);
         $query = $qb->getQuery();
         $result = $query->getResult();

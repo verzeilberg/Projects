@@ -12,7 +12,7 @@ use Application\Model\UnityOfWork;
  * @ORM\Entity()
  * @ORM\Table(name="countries")
  */
-class Country extends UnityOfWork {
+class Language extends UnityOfWork {
 
     /**
      * @ORM\Id
@@ -48,6 +48,16 @@ class Country extends UnityOfWork {
      */
     private $countryImage;
 
+    /**
+     * One Language has Many translations.
+     * @ORM\OneToMany(targetEntity="Translations", mappedBy="language")
+     */
+    private $translations;
+
+    public function __construct() {
+        $this->translations = new ArrayCollection();
+    }
+
     function getId() {
         return $this->id;
     }
@@ -60,7 +70,7 @@ class Country extends UnityOfWork {
         return $this->shortName;
     }
 
-    function getCountryImage() {
+    function getLanguageImage() {
         return $this->countryImage;
     }
 
@@ -76,8 +86,26 @@ class Country extends UnityOfWork {
         $this->shortName = $shortName;
     }
 
+    function setLanguageImage($countryImage) {
+        $this->countryImage = $countryImage;
+    }
+    
+    function getCountryImage() {
+        return $this->countryImage;
+    }
+
+    function getTranslations() {
+        return $this->translations;
+    }
+
     function setCountryImage($countryImage) {
         $this->countryImage = $countryImage;
     }
+
+    function setTranslations($translations) {
+        $this->translations = $translations;
+    }
+
+
 
 }
