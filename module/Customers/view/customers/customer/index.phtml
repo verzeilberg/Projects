@@ -38,6 +38,7 @@ $this->pageBreadcrumbs()->setItems([
                     <th>&nbsp;</th>
                 </tr>
             </thead>
+            <?php if (count($customers) > 0) { ?>
             <?php foreach ($customers as $customer): ?>
                 <tr>
                     <td>
@@ -61,7 +62,12 @@ $this->pageBreadcrumbs()->setItems([
                         </a>
                     </td>    
                 </tr>
-            <?php endforeach; ?>   
+            <?php endforeach; ?>  
+            <?php } else { ?>
+                <tr>
+                    <td colspan="5" class="text-center"><?php echo $this->translator()->translate('No customers found!') ?></td>
+                </tr>
+            <?php } ?>
         </table>
     </div>
 </div>

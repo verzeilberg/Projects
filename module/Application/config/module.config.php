@@ -80,6 +80,16 @@ return [
                             ],
                         ],
                     ],
+                    'translators' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/translators[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Translator\Controller\TranslatorController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'contacts' => [
                         'type' => Segment::class,
                         'options' => [
@@ -141,6 +151,10 @@ return [
                 ['actions' => '*', 'allow' => '+contact.manage']
             ],
             \Translator\Controller\LanguageController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+language.manage']
+            ],
+            \Translator\Controller\TranslatorController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+language.manage']
             ],

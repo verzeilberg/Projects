@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Global Configuration Override
  *
@@ -10,7 +11,6 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-
 use Zend\Session\Storage\SessionArrayStorage;
 use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
@@ -19,8 +19,8 @@ use Zend\Cache\Storage\Adapter\Filesystem;
 return [
     // Session configuration.
     'session_config' => [
-        'cookie_lifetime'     => 60*60*1, // Session cookie will expire in 1 hour.
-        'gc_maxlifetime'      => 60*60*24*30, // How long to store session data on server (for 1 month).        
+        'cookie_lifetime' => 60 * 60 * 1, // Session cookie will expire in 1 hour.
+        'gc_maxlifetime' => 60 * 60 * 24 * 30, // How long to store session data on server (for 1 month).        
     ],
     // Session manager configuration.
     'session_manager' => [
@@ -38,31 +38,31 @@ return [
     'caches' => [
         'FilesystemCache' => [
             'adapter' => [
-                'name'    => Filesystem::class,
+                'name' => Filesystem::class,
                 'options' => [
                     // Store cached data in this directory.
                     'cache_dir' => './data/cache',
                     // Store cached data for 1 hour.
-                    'ttl' => 60*60*1 
+                    'ttl' => 60 * 60 * 1
                 ],
             ],
             'plugins' => [
                 [
                     'name' => 'serializer',
-                    'options' => [                        
+                    'options' => [
                     ],
                 ],
             ],
         ],
     ],
-    'doctrine' => [        
+    'doctrine' => [
         // migrations configuration
         'migrations_configuration' => [
             'orm_default' => [
                 'directory' => 'data/Migrations',
-                'name'      => 'Doctrine Database Migrations',
+                'name' => 'Doctrine Database Migrations',
                 'namespace' => 'Migrations',
-                'table'     => 'migrations',
+                'table' => 'migrations',
             ],
         ],
     ],
@@ -89,4 +89,16 @@ return [
         ],
         'rootPath' => $_SERVER['DOCUMENT_ROOT'] . '/img/userFiles',
     ],
+    'imageUploadSettings' => [
+        'language' => [
+            'uploadFolder' => 'img/userFiles/languages/original/',
+            'uploadeFileSize' => '5000000000000000',
+            'allowedImageTypes' => [
+                'image/jpeg',
+                'image/png',
+                'image/gif'
+            ],
+        ],
+        'rootPath' => $_SERVER['DOCUMENT_ROOT'] . '/img/userFiles',
+    ]
 ];
