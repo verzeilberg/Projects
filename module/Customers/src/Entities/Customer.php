@@ -73,7 +73,7 @@ class Customer extends UnityOfWork {
 
     /**
      * @ORM\ManyToOne(targetEntity="Translator\Entities\Language")
-     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id", onDelete="SET NULL")
      * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
      * @Annotation\Options({
      * "empty_option": "---",
