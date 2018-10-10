@@ -32,9 +32,9 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-striped table-condensed">
             <thead class="thead-dark">
                 <tr>
-                    <th>Name</th>
-                    <th>Date Created</th>
-                    <th>Language</th>
+                    <th><?php echo $this->translator()->translate('customer.name') ?></th>
+                    <th><?php echo $this->translator()->translate('customer.date.created') ?></th>
+                    <th><?php echo $this->translator()->translate('customer.language') ?></th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>

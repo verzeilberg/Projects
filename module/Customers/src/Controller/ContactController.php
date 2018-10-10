@@ -5,6 +5,7 @@ namespace Customers\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Zend\Session\Container;
 
 class ContactController extends AbstractActionController {
 
@@ -56,6 +57,10 @@ class ContactController extends AbstractActionController {
     public function editAction() {
         $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
         $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+        
+        //Create session container for crop images
+        $container = new Container('cropImages');
+        $container->getManager()->getStorage()->clear('cropImages');
 
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
