@@ -105,7 +105,7 @@ return [
                         'options' => [
                             'route' => '/projects[[/]:action[/:id]]',
                             'defaults' => [
-                                'controller' => \Controller\ProjectController::class,
+                                'controller' => \Projects\Controller\ProjectController::class,
                                 'action' => 'index',
                             ],
                         ],
@@ -168,7 +168,7 @@ return [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+language.manage']
             ],
-            \Controller\ProjectController::class => [
+            \Projects\Controller\ProjectController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+project.manage']
             ],
