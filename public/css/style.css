@@ -1,3 +1,7 @@
 h1.applicationHeader {
     font-size:50px;
 }
+
+ul.flashMessages {
+    margin-bottom:0 !important;
+}

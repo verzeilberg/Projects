@@ -100,6 +100,16 @@ return [
                             ],
                         ],
                     ],
+                    'projects' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/projects[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Controller\ProjectController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'images' => [
                         'type' => Segment::class,
                         'options' => [
@@ -157,6 +167,10 @@ return [
             \Translator\Controller\TranslatorController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+language.manage']
+            ],
+            \Controller\ProjectController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+project.manage']
             ],
         ]
     ],

@@ -85,6 +85,14 @@ class NavManager {
                 ];
             }
             
+            if ($this->rbacManager->isGranted(null, 'project.manage')) {
+                $items[] = [
+                    'id' => 'projects',
+                    'label' => 'Projects',
+                    'link' => $url('beheer/projects')
+                ];
+            }
+            
             if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $items[] = [
                     'id' => 'languages',
