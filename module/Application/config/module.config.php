@@ -90,6 +90,16 @@ return [
                             ],
                         ],
                     ],
+                    'translations' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/translations[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Translator\Controller\TranslationController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'contacts' => [
                         'type' => Segment::class,
                         'options' => [
@@ -167,6 +177,10 @@ return [
             \Translator\Controller\TranslatorController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+language.manage']
+            ],
+            \Translator\Controller\TranslationController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+translation.manage']
             ],
             \Projects\Controller\ProjectController::class => [
                 // to anyone.

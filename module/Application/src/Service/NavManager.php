@@ -103,9 +103,9 @@ class NavManager {
             
             if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $items[] = [
-                    'id' => 'translators',
+                    'id' => 'translations',
                     'label' => 'Translations',
-                    'link' => $url('beheer/translators')
+                    'link' => $url('beheer/translations')
                 ];
             }
 
