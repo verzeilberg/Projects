@@ -64,10 +64,10 @@ class Language extends \Translator\Entities\Language implements \Doctrine\ORM\Pr
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'name', 'shortName', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'languageImage', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'translations', 'dateCreated', 'createdBy', 'dateChanged', 'changedBy', 'dateDeleted', 'deletedBy', 'deleted'];
+            return ['__isInitialized__', 'id', 'name', 'shortName', 'generatedFileDate', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'languageImage', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'translations', 'dateCreated', 'createdBy', 'dateChanged', 'changedBy', 'dateDeleted', 'deletedBy', 'deleted'];
         }
 
-        return ['__isInitialized__', 'id', 'name', 'shortName', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'languageImage', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'translations', 'dateCreated', 'createdBy', 'dateChanged', 'changedBy', 'dateDeleted', 'deletedBy', 'deleted'];
+        return ['__isInitialized__', 'id', 'name', 'shortName', 'generatedFileDate', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'languageImage', '' . "\0" . 'Translator\\Entities\\Language' . "\0" . 'translations', 'dateCreated', 'createdBy', 'dateChanged', 'changedBy', 'dateDeleted', 'deletedBy', 'deleted'];
     }
 
     /**
@@ -285,6 +285,28 @@ class Language extends \Translator\Entities\Language implements \Doctrine\ORM\Pr
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTranslations', [$translations]);
 
         return parent::setTranslations($translations);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGeneratedFileDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getGeneratedFileDate', []);
+
+        return parent::getGeneratedFileDate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setGeneratedFileDate($generatedFileDate)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setGeneratedFileDate', [$generatedFileDate]);
+
+        return parent::setGeneratedFileDate($generatedFileDate);
     }
 
     /**

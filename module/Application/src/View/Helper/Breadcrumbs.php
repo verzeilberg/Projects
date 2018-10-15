@@ -43,7 +43,7 @@ class Breadcrumbs extends AbstractHelper
         
         // Resulting HTML code will be stored in this var
         $result = '<nav aria-label="breadcrumb">';
-        $result .= '<ol class="breadcrumb">';
+        $result .= '<ol class="breadcrumb row">';
         
         // Get item count
         $itemCount = count($this->items); 

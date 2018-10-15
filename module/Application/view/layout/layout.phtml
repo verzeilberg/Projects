@@ -28,36 +28,28 @@
         ?>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <!-- Page header -->
                 <div class="col-md-4">
                     <h1 class="applicationHeader">Projects</h1>
                 </div>                
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Navigation bar -->
-                    <?php
-                    // Check if the activeMenuItemId passed to layout view model
-                    // and if so, use it for setting active navbar item.
-                    if (isset($activeMenuItemId)) {
-                        $this->mainMenu()->setActiveItemId($activeMenuItemId);
-                    }
+            <!-- Navigation bar -->
+            <?php
+            // Check if the activeMenuItemId passed to layout view model
+            // and if so, use it for setting active navbar item.
+            if (isset($activeMenuItemId)) {
+                $this->mainMenu()->setActiveItemId($activeMenuItemId);
+            }
 
-                    // Render the navbar
-                    echo $this->mainMenu()->render();
-                    ?>
-                </div>
-            </div>
+            // Render the navbar
+            echo $this->mainMenu()->render();
+            ?>
+            <!-- Breadcrumbs -->
+            <?= $this->pageBreadcrumbs()->render(); ?>
             <div class="row">
-                <div class="col-md-12">
-                    <!-- Breadcrumbs -->
-                    <?= $this->pageBreadcrumbs()->render(); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col">
                     <!-- Page content placeholder -->
                     <?= $this->content; ?>
                 </div>
