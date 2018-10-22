@@ -31,9 +31,12 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Page header -->
-                <div class="col-md-4">
+                <div class="col-md-11">
                     <h1 class="applicationHeader">Projects</h1>
-                </div>                
+                </div> 
+                <?php
+                    $this->languageSelect()->generateLanguageSelect();
+                ?>
             </div>
             <!-- Navigation bar -->
             <?php
