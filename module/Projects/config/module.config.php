@@ -11,11 +11,13 @@ return [
     'controllers' => [
         'factories' => [
             Controller\ProjectController::class => Factory\ProjectControllerFactory::class,
+            Controller\ProjectTypeController::class => Factory\ProjectTypeControllerFactory::class,
         ],
     ],
     'service_manager' => [
         'invokables' => [
             'Projects\Service\projectServiceInterface' => 'Projects\Service\projectService',
+            'Projects\Service\projectTypeServiceInterface' => 'Projects\Service\projectTypeService',
         ],
     ],
     // The following section is new and should be added to your file
@@ -35,6 +37,20 @@ return [
                     ],
                 ],
             ],
+            'projecttypes' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/project-types[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ProjectTypeController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -49,6 +65,10 @@ return [
             \Projects\Controller\ProjectController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+project.manage']
+            ],
+            \Projects\Controller\ProjectTypeController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+project.type.manage']
             ],
         ]
     ],

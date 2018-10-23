@@ -120,6 +120,16 @@ return [
                             ],
                         ],
                     ],
+                    'projecttypes' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/project-types[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Projects\Controller\ProjectTypeController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'images' => [
                         'type' => Segment::class,
                         'options' => [
@@ -185,6 +195,10 @@ return [
             \Projects\Controller\ProjectController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+project.manage']
+            ],
+            \Projects\Controller\ProjectTypeController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+project.type.manage']
             ],
         ]
     ],

@@ -1,0 +1,18 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customer');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    'Manage Project types' => $this->url('beheer/projecttypes'),
+    'Add Project type' => $this->url('beheer/projecttypes', ['action' => 'add'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1>Manage Project types</h1>
+<?php
+echo $this->partial('projects/project-type/partials/form.phtml', array('form' => $form));
+?>

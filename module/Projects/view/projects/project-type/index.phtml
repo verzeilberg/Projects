@@ -29,15 +29,15 @@ $this->pageBreadcrumbs()->setItems([
         <th><?php echo $this->translator()->translate('table.projects.date.created'); ?></th>
     </tr>
 
-    <?php foreach ($projects as $project): ?>
+    <?php foreach ($projectTypes as $projectType): ?>
 
         <tr>
             <td>
-                <?= $this->escapeHtml($project->getName()); ?></a> 
+                <?= $this->escapeHtml($projectType->getName()); ?></a> 
             </td>
-            <td><nobr><?= (is_object($project->getDateCreated()) ? $this->escapeHtml($project->getDateCreated()->format('Y-m-d')) : ''); ?></nobr></td>        
+            <td><nobr><?= (is_object($projectType->getDateCreated()) ? $this->escapeHtml($projectType->getDateCreated()->format('Y-m-d')) : ''); ?></nobr></td>        
     <td>
-        <a class="btn btn-info" href="<?= $this->url('beheer/projects', ['action' => 'edit', 'id' => $project->getId()]);
+        <a class="btn btn-info" href="<?= $this->url('beheer/projecttypes', ['action' => 'edit', 'id' => $projectType->getId()]);
             ?>">
             <span class="glyphicon glyphicon-pencil" ></span> <?php echo $this->translator()->translate('edit'); ?>
         </a>

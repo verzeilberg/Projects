@@ -31,6 +31,16 @@ class ProjectType extends UnityOfWork {
      */
     protected $name;
 
+    /**
+     * Many Project types have Many Projects.
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="projectTypes")
+     */
+    private $projects;
+
+    public function __construct() {
+        $this->projects = new ArrayCollection();
+    }
+
     function getId() {
         return $this->id;
     }
@@ -45,6 +55,14 @@ class ProjectType extends UnityOfWork {
 
     function setName($name) {
         $this->name = $name;
+    }
+
+    function getProjects() {
+        return $this->projects;
+    }
+
+    function setProjects($projects) {
+        $this->projects = $projects;
     }
 
 }
