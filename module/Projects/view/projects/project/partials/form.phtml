@@ -9,44 +9,9 @@
     </div>
 </div>
 <div class="form-group row">
-    <?php echo $this->formLabel($form->get('visitStreet')); ?>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-        <?php echo $this->formText($form->get('visitStreet')); ?>
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-        <?php echo $this->formText($form->get('visitNumber')); ?>
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-        <?php echo (count($form->getMessages('visitStreet')) > 0 ? $form->getMessages('visitStreet')['isEmpty'] : '&nbsp;' ) ?>
-        <?php echo (count($form->getMessages('visitNumber')) > 0 ? $form->getMessages('visitNumber')['isEmpty'] : '&nbsp;' ) ?>
-    </div>
-</div>
-<div class="form-group row">
-    <?php echo $this->formLabel($form->get('visitPostalCode')); ?>
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <?php echo $this->formText($form->get('visitPostalCode')); ?>
-    </div>
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <?php echo $this->formText($form->get('visitCity')); ?>
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-        <?php echo (count($form->getMessages('visitPostalCode')) > 0 ? $form->getMessages('visitPostalCode')['isEmpty'] : '&nbsp;' ) ?>
-        <?php echo (count($form->getMessages('visitCity')) > 0 ? $form->getMessages('visitCity')['isEmpty'] : '&nbsp;' ) ?>
-    </div>
-</div>
-<div class="form-group row">
-    <?php echo $this->formLabel($form->get('language')); ?>
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <?php echo $this->formSelect($form->get('language')); ?>
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-2">
-        <?php echo (count($form->getMessages('language')) > 0 ? $form->getMessages('language')['isEmpty'] : '&nbsp;' ) ?>
-    </div>
-</div>
-<div class="form-group row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <button type="submit" id="submit" class="btn btn-success">Opslaan</button> 
-        <a href="<?php echo $this->url['beheer\customers']; ?>" class="btn btn-danger" title="Annuleren">Annuleren</a>
+        <a href="<?= $this->url('beheer/projects'); ?>" class="btn btn-danger" title="Annuleren">Annuleren</a>
     </div>
 </div>
 <?php echo $this->form()->closeTag($form); ?>

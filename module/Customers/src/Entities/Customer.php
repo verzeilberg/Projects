@@ -5,15 +5,21 @@ namespace Customers\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
-use Application\Model\UnityOfWork;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Application\Traits\SoftDeleteableEntity;
+use Application\Traits\TimestampableEntity;
 
 /**
  * This class represents a customer item.
  * @ORM\Entity()
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  * @ORM\Table(name="customers")
  */
-class Customer extends UnityOfWork {
+class Customer {
 
+    use SoftDeleteableEntity;
+    use TimestampableEntity;
+    
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer", length=11)
@@ -92,8 +98,15 @@ class Customer extends UnityOfWork {
      */
     private $contacts;
 
+    /**
+     * One Customer has Many Projects.
+     * @ORM\OneToMany(targetEntity="Projects\Entities\Project", mappedBy="customer")
+     */
+    private $projects;
+
     public function __construct() {
         $this->contacts = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     function getId() {
@@ -158,6 +171,14 @@ class Customer extends UnityOfWork {
 
     function setContacts($contacts) {
         $this->contacts = $contacts;
+    }
+
+    function getProjects() {
+        return $this->projects;
+    }
+
+    function setProjects($projects) {
+        $this->projects = $projects;
     }
 
 }

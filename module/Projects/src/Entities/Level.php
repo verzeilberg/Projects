@@ -10,15 +10,16 @@ use Application\Traits\SoftDeleteableEntity;
 use Application\Traits\TimestampableEntity;
 
 /**
- * This class represents a project type item.
+ * This class represents a level item.
  * @ORM\Entity()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- * @ORM\Table(name="project_types")
+ * @ORM\Table(name="levels")
  */
-class ProjectType {
-    
+class Level {
+
     use SoftDeleteableEntity;
-    use TimestampableEntity;
+
+use TimestampableEntity;
 
     /**
      * @ORM\Id
@@ -38,20 +39,14 @@ class ProjectType {
     protected $name;
 
     /**
-     * One ProjectType has Many Projects.
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="projectType")
+     * Many Levels have Many Expertise levels
+     * @ORM\ManyToMany(targetEntity="ExpertiseLevel", inversedBy="levels")
+     * @ORM\JoinTable(name="levels_expertises")
      */
-    private $projects;
-
-    /**
-     * One ProjectType has Many Project Phase Type.
-     * @ORM\OneToMany(targetEntity="ProjectPhaseType", mappedBy="projectType")
-     */
-    private $projectPhaseTypes;
+    private $expertiseLevels;
 
     public function __construct() {
-        $this->projects = new ArrayCollection();
-        $this->projectPhaseTypes = new ArrayCollection();
+        $this->expertiseLevels = new ArrayCollection();
     }
 
     function getId() {
@@ -70,22 +65,12 @@ class ProjectType {
         $this->name = $name;
     }
 
-    function getProjects() {
-        return $this->projects;
+    function getExpertiseLEvels() {
+        return $this->expertiseLEvels;
     }
 
-    function setProjects($projects) {
-        $this->projects = $projects;
+    function setExpertiseLEvels($expertiseLEvels) {
+        $this->expertiseLEvels = $expertiseLEvels;
     }
-    
-    function getProjectPhaseTypes() {
-        return $this->projectPhaseTypes;
-    }
-
-    function setProjectPhaseTypes($projectPhaseTypes) {
-        $this->projectPhaseTypes = $projectPhaseTypes;
-    }
-
-
 
 }

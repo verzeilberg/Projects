@@ -13,10 +13,10 @@ use Application\Traits\TimestampableEntity;
  * This class represents a project type item.
  * @ORM\Entity()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- * @ORM\Table(name="project_types")
+ * @ORM\Table(name="project_phase_types")
  */
-class ProjectType {
-    
+class ProjectPhaseType {
+
     use SoftDeleteableEntity;
     use TimestampableEntity;
 
@@ -38,20 +38,20 @@ class ProjectType {
     protected $name;
 
     /**
-     * One ProjectType has Many Projects.
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="projectType")
+     * One ProjectPhaseType has Many Project phases.
+     * @ORM\OneToMany(targetEntity="ProjectPhase", mappedBy="projectPhaseType")
      */
-    private $projects;
-
-    /**
-     * One ProjectType has Many Project Phase Type.
-     * @ORM\OneToMany(targetEntity="ProjectPhaseType", mappedBy="projectType")
+    private $projectPhases;
+    
+        /**
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="ProjectType", inversedBy="projectPhaseTypes")
+     * @ORM\JoinColumn(name="project_type_id", referencedColumnName="id")
      */
-    private $projectPhaseTypes;
+    private $projectType;
 
-    public function __construct() {
-        $this->projects = new ArrayCollection();
-        $this->projectPhaseTypes = new ArrayCollection();
+     public function __construct() {
+        $this->projectPhases = new ArrayCollection();
     }
 
     function getId() {
@@ -62,6 +62,10 @@ class ProjectType {
         return $this->name;
     }
 
+    function getProjectPhaseTypes() {
+        return $this->projectPhaseTypes;
+    }
+
     function setId($id) {
         $this->id = $id;
     }
@@ -70,20 +74,24 @@ class ProjectType {
         $this->name = $name;
     }
 
-    function getProjects() {
-        return $this->projects;
-    }
-
-    function setProjects($projects) {
-        $this->projects = $projects;
-    }
-    
-    function getProjectPhaseTypes() {
-        return $this->projectPhaseTypes;
-    }
-
     function setProjectPhaseTypes($projectPhaseTypes) {
         $this->projectPhaseTypes = $projectPhaseTypes;
+    }
+    
+    function getProjectPhases() {
+        return $this->projectPhases;
+    }
+
+    function getProjectType() {
+        return $this->projectType;
+    }
+
+    function setProjectPhases($projectPhases) {
+        $this->projectPhases = $projectPhases;
+    }
+
+    function setProjectType($projectType) {
+        $this->projectType = $projectType;
     }
 
 

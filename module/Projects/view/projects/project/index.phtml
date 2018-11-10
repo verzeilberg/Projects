@@ -27,6 +27,7 @@ $this->pageBreadcrumbs()->setItems([
     <tr>
         <th><?php echo $this->translator()->translate('table.projects.name'); ?></th>
         <th><?php echo $this->translator()->translate('table.projects.date.created'); ?></th>
+        <th>&nbsp;</th>
     </tr>
 
     <?php foreach ($projects as $project): ?>
@@ -35,12 +36,14 @@ $this->pageBreadcrumbs()->setItems([
             <td>
                 <?= $this->escapeHtml($project->getName()); ?></a> 
             </td>
-            <td><nobr><?= (is_object($project->getDateCreated()) ? $this->escapeHtml($project->getDateCreated()->format('Y-m-d')) : ''); ?></nobr></td>        
+            <td><nobr></nobr></td>        
     <td>
-        <a class="btn btn-info" href="<?= $this->url('beheer/projects', ['action' => 'edit', 'id' => $project->getId()]);
-            ?>">
-            <span class="glyphicon glyphicon-pencil" ></span> <?php echo $this->translator()->translate('edit'); ?>
-        </a>
+        <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/projects', ['action' => 'edit', 'id' => $project->getId()]); ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+        <a class="btn btn-danger btn-sm" href="<?= $this->url('beheer/projects', ['action' => 'delete', 'id' => $project->getId()]); ?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
     </td>    
     </tr>
 

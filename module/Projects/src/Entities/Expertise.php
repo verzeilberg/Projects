@@ -10,15 +10,16 @@ use Application\Traits\SoftDeleteableEntity;
 use Application\Traits\TimestampableEntity;
 
 /**
- * This class represents a project type item.
+ * This class represents a expertise item.
  * @ORM\Entity()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- * @ORM\Table(name="project_types")
+ * @ORM\Table(name="expertises")
  */
-class ProjectType {
-    
+class Expertise {
+
     use SoftDeleteableEntity;
-    use TimestampableEntity;
+
+use TimestampableEntity;
 
     /**
      * @ORM\Id
@@ -36,22 +37,24 @@ class ProjectType {
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
      */
     protected $name;
-
-    /**
-     * One ProjectType has Many Projects.
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="projectType")
+    
+        /**
+     * Many Expertise have Many Projects.
+     * @ORM\ManyToMany(targetEntity="Project", inversedBy="expertises")
+     * @ORM\JoinTable(name="expertises_projects")
      */
     private $projects;
-
-    /**
-     * One ProjectType has Many Project Phase Type.
-     * @ORM\OneToMany(targetEntity="ProjectPhaseType", mappedBy="projectType")
+    
+        /**
+     * Many Expertises have Many Expertise levels
+     * @ORM\ManyToMany(targetEntity="ExpertiseLevel", inversedBy="expertises")
+     * @ORM\JoinTable(name="expertiselevels_expertises")
      */
-    private $projectPhaseTypes;
+    private $expertiseLevels;
 
     public function __construct() {
         $this->projects = new ArrayCollection();
-        $this->projectPhaseTypes = new ArrayCollection();
+        $this->expertiseLevels = new ArrayCollection();
     }
 
     function getId() {
@@ -69,7 +72,7 @@ class ProjectType {
     function setName($name) {
         $this->name = $name;
     }
-
+    
     function getProjects() {
         return $this->projects;
     }
@@ -77,13 +80,13 @@ class ProjectType {
     function setProjects($projects) {
         $this->projects = $projects;
     }
-    
-    function getProjectPhaseTypes() {
-        return $this->projectPhaseTypes;
+
+    function getExpertiseLevels() {
+        return $this->expertiseLevels;
     }
 
-    function setProjectPhaseTypes($projectPhaseTypes) {
-        $this->projectPhaseTypes = $projectPhaseTypes;
+    function setExpertiseLevels($expertiseLevels) {
+        $this->expertiseLevels = $expertiseLevels;
     }
 
 

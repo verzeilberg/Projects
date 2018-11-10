@@ -6,6 +6,9 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter;
+use Gedmo\SoftDeleteable\SoftDeleteableListener;
+use Gedmo\Timestampable\TimestampableListener;
 
 return [
     'controllers' => [
@@ -84,7 +87,22 @@ return [
                     __NAMESPACE__ . '\Entities' => __NAMESPACE__ . '_driver'
                 ]
             ]
-        ]
+        ],
+        'eventmanager' => [
+            'orm_default' => [
+                'subscribers' => [
+                    SoftDeleteableListener::class,
+                    TimestampableListener::class,
+                ],
+            ],
+        ],
+        'configuration' => [
+            'orm_default' => [
+                'filters' => [
+                    'soft-deletable' => SoftDeleteableFilter::class,
+                ],
+            ],
+        ],
     ],
     'asset_manager' => [
         'resolver_configs' => [

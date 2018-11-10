@@ -10,12 +10,12 @@ use Application\Traits\SoftDeleteableEntity;
 use Application\Traits\TimestampableEntity;
 
 /**
- * This class represents a project type item.
+ * This class represents a risk factor item.
  * @ORM\Entity()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- * @ORM\Table(name="project_types")
+ * @ORM\Table(name="risk_factors")
  */
-class ProjectType {
+class RiskFactor {
     
     use SoftDeleteableEntity;
     use TimestampableEntity;
@@ -38,28 +38,40 @@ class ProjectType {
     protected $name;
 
     /**
-     * One ProjectType has Many Projects.
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="projectType")
+     * @ORM\Column(name="level", type="integer", length=11, nullable=false)
+     * @Annotation\Options({
+     * "label": "Level",
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
+     */
+    protected $level;
+
+    /**
+     * Many Risk factors have Many Projects.
+     * @ORM\ManyToMany(targetEntity="Project", inversedBy="riskFactors")
+     * @ORM\JoinTable(name="riskfactors_projects")
      */
     private $projects;
 
-    /**
-     * One ProjectType has Many Project Phase Type.
-     * @ORM\OneToMany(targetEntity="ProjectPhaseType", mappedBy="projectType")
-     */
-    private $projectPhaseTypes;
-
     public function __construct() {
         $this->projects = new ArrayCollection();
-        $this->projectPhaseTypes = new ArrayCollection();
     }
-
+    
     function getId() {
         return $this->id;
     }
 
     function getName() {
         return $this->name;
+    }
+
+    function getLevel() {
+        return $this->level;
+    }
+
+    function getProjects() {
+        return $this->projects;
     }
 
     function setId($id) {
@@ -70,20 +82,12 @@ class ProjectType {
         $this->name = $name;
     }
 
-    function getProjects() {
-        return $this->projects;
+    function setLevel($level) {
+        $this->level = $level;
     }
 
     function setProjects($projects) {
         $this->projects = $projects;
-    }
-    
-    function getProjectPhaseTypes() {
-        return $this->projectPhaseTypes;
-    }
-
-    function setProjectPhaseTypes($projectPhaseTypes) {
-        $this->projectPhaseTypes = $projectPhaseTypes;
     }
 
 

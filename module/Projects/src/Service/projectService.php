@@ -30,7 +30,7 @@ class projectService implements projectServiceInterface {
     public function getProjects() {
 
         $projects = $this->entityManager->getRepository(Project::class)
-                ->findBy([], ['dateCreated' => 'DESC']);
+                ->findBy(['deletedAt' => null],[]);
 
         return $projects;
     }
@@ -89,7 +89,7 @@ class projectService implements projectServiceInterface {
         $this->entityManager->persist($project);
         $this->entityManager->flush();
     }
-
+    
     /**
      *
      * Delete a project from database
