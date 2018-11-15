@@ -130,6 +130,16 @@ return [
                             ],
                         ],
                     ],
+                    'levels' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/levels[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Projects\Controller\LevelController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'images' => [
                         'type' => Segment::class,
                         'options' => [
@@ -199,6 +209,10 @@ return [
             \Projects\Controller\ProjectTypeController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+project.type.manage']
+            ],
+            \Projects\Controller\LevelController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+level.manage']
             ],
         ]
     ],

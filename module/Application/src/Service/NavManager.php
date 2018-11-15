@@ -84,15 +84,22 @@ class NavManager {
                     'link' => $url('beheer/customers')
                 ];
             }
-            
+
             if ($this->rbacManager->isGranted(null, 'project.manage')) {
                 $items[] = [
                     'id' => 'projects',
                     'label' => 'Projects',
-                    'link' => $url('beheer/projects')
+                    'link' => $url('beheer/projects'),
+                    'dropdown' => [
+                        [
+                            'id' => 'levels',
+                            'label' => 'Levels',
+                            'link' => $url('beheer/levels')
+                        ],
+                    ]
                 ];
             }
-            
+
             if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $items[] = [
                     'id' => 'languages',
@@ -100,7 +107,7 @@ class NavManager {
                     'link' => $url('beheer/languages')
                 ];
             }
-            
+
             if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $items[] = [
                     'id' => 'translations',

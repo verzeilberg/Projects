@@ -15,12 +15,14 @@ return [
         'factories' => [
             Controller\ProjectController::class => Factory\ProjectControllerFactory::class,
             Controller\ProjectTypeController::class => Factory\ProjectTypeControllerFactory::class,
+            Controller\LevelController::class => Factory\LevelControllerFactory::class,
         ],
     ],
     'service_manager' => [
         'invokables' => [
             'Projects\Service\projectServiceInterface' => 'Projects\Service\projectService',
             'Projects\Service\projectTypeServiceInterface' => 'Projects\Service\projectTypeService',
+            'Projects\Service\levelServiceInterface' => 'Projects\Service\levelService',
         ],
     ],
     // The following section is new and should be added to your file
@@ -54,6 +56,20 @@ return [
                     ],
                 ],
             ],
+            'levels' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/levels[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\LevelController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -72,6 +88,10 @@ return [
             \Projects\Controller\ProjectTypeController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+project.type.manage']
+            ],
+            \Projects\Controller\LevelController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+level.manage']
             ],
         ]
     ],

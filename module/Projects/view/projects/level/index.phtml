@@ -1,0 +1,48 @@
+<?php
+$this->headTitle('Levels');
+
+$this->mainMenu()->setActiveItemId('levels');
+
+$this->pageBreadcrumbs()->setItems([
+    'Home' => $this->url('home'),
+    $this->translator()->translate('levels.manage') => $this->url('beheer/levels'),
+]);
+?>
+
+<h1><?php echo $this->translator()->translate('levels.manage'); ?></h1>
+
+<p>
+    <a class="btn btn-primary" href="
+       <?= $this->url('beheer/levels', ['action' => 'add']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo $this->translator()->translate('new.level'); ?>
+    </a>
+</p>
+
+<table class="table table-striped">
+
+    <tr>
+        <th><?php echo $this->translator()->translate('table.levels.name'); ?></th>
+        <th><?php echo $this->translator()->translate('table.levels.date.created'); ?></th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php foreach ($items as $item): ?>
+
+        <tr>
+            <td>
+                <?= $this->escapeHtml($item->getName()); ?></a> 
+            </td>
+            <td><nobr></nobr></td>        
+    <td>
+        <a class="btn btn-dark btn-sm" href="<?= $this->url('beheer/levels', ['action' => 'edit', 'id' => $item->getId()]); ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+        <a class="btn btn-danger btn-sm" href="<?= $this->url('beheer/levels', ['action' => 'delete', 'id' => $item->getId()]); ?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
+    </td>    
+    </tr>
+
+<?php endforeach; ?>   
+
+</table>
