@@ -10,8 +10,8 @@
 </div>
 <div class="form-group row">
     <div class="col-sm-12 col-md-12 col-lg-12">
-        <button type="submit" id="submit" class="btn btn-success">Opslaan</button> 
-        <a href="<?= $this->url('beheer/projects'); ?>" class="btn btn-danger" title="Annuleren">Annuleren</a>
+        <button type="submit" id="submit" class="btn btn-success"><?php echo $this->translator()->translate('save'); ?></button>
+        <a href="<?= $this->url('beheer/projects'); ?>" class="btn btn-danger" title="<?php echo $this->translator()->translate('cancel'); ?>"><?php echo $this->translator()->translate('cancel'); ?></a>
     </div>
 </div>
 <?php echo $this->form()->closeTag($form); ?>

@@ -1,0 +1,18 @@
+<?php
+$this->headTitle('Customers');
+
+$this->mainMenu()->setActiveItemId('customer');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('expertises.manage') => $this->url('beheer/customers'),
+    $this->translator()->translate('expertise.edit') => $this->url('beheer/customers', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1><?php echo $this->translator()->translate('manage.expertises'); ?></h1>
+<?php
+echo $this->partial('projects/expertise/partials/form.phtml', array('form' => $form));
+?>

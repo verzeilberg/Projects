@@ -2,6 +2,44 @@ h1.applicationHeader {
     font-size:50px;
 }
 
-ul.flashMessages {
+div.alert > ul {
     margin-bottom:0 !important;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+/*
+ /Hide alert messages after 5 seconds
+*/
+.alert {
+    -webkit-animation: seconds 1.0s forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-delay: 5s;
+    animation: seconds 1.0s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 5s;
+    position: relative;
+
+}
+@-webkit-keyframes seconds {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        left: -9999px;
+        position: absolute;
+    }
+}
+@keyframes seconds {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        left: -9999px;
+        position: absolute;
+    }
 }

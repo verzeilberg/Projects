@@ -16,6 +16,8 @@ return [
             Controller\ProjectController::class => Factory\ProjectControllerFactory::class,
             Controller\ProjectTypeController::class => Factory\ProjectTypeControllerFactory::class,
             Controller\LevelController::class => Factory\LevelControllerFactory::class,
+            Controller\ExpertiseController::class => Factory\ExpertiseControllerFactory::class,
+            Controller\ConsultantController::class => Factory\ConsultantControllerFactory::class,
         ],
     ],
     'service_manager' => [
@@ -23,6 +25,8 @@ return [
             'Projects\Service\projectServiceInterface' => 'Projects\Service\projectService',
             'Projects\Service\projectTypeServiceInterface' => 'Projects\Service\projectTypeService',
             'Projects\Service\levelServiceInterface' => 'Projects\Service\levelService',
+            'Projects\Service\expertiseServiceInterface' => 'Projects\Service\expertiseService',
+            'Projects\Service\consultantServiceInterface' => 'Projects\Service\consultantService',
         ],
     ],
     // The following section is new and should be added to your file
@@ -70,6 +74,34 @@ return [
                     ],
                 ],
             ],
+            'expertises' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/expertises[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ExpertiseController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'consultants' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/consultants[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ConsultantController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -92,6 +124,14 @@ return [
             \Projects\Controller\LevelController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+level.manage']
+            ],
+            \Projects\Controller\ExpertiseController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+expertise.manage']
+            ],
+            \Projects\Controller\ConsultantController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+consultant.manage']
             ],
         ]
     ],

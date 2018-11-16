@@ -4,15 +4,15 @@ $this->headTitle('Customers');
 $this->mainMenu()->setActiveItemId('customer');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Customers' => $this->url('beheer/customers'),
-    'Add Customer' => $this->url('beheer/customers', ['action' => 'add'])
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('levels.manage') => $this->url('beheer/customers'),
+    $this->translator()->translate('level.edit') => $this->url('beheer/customers', ['action' => 'edit'])
 ]);
 $form->setAttributes(array(
     'enctype' => 'multipart/form-data'
 ));
 ?>
-<h1>Manage Customers</h1>
+<h1><?php echo $this->translator()->translate('manage.levels'); ?></h1>
 <?php
-echo $this->partial('projects/project/partials/form.phtml', array('form' => $form));
+echo $this->partial('projects/level/partials/form.phtml', array('form' => $form));
 ?>

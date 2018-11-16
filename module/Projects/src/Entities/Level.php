@@ -18,8 +18,7 @@ use Application\Traits\TimestampableEntity;
 class Level {
 
     use SoftDeleteableEntity;
-
-use TimestampableEntity;
+    use TimestampableEntity;
 
     /**
      * @ORM\Id
@@ -37,6 +36,27 @@ use TimestampableEntity;
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
      */
     protected $name;
+
+    /**
+     * @ORM\Column(name="value", type="integer", length=255, nullable=false)
+     * @Annotation\Options({
+     * "label": "Value",
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "min":"0", "max":"10", "placeholder":"Value"})
+     */
+    protected $value;
+
+    /**
+     * @ORM\Column(name="sort_order", type="integer", length=255, nullable=false)
+     * @Annotation\Options({
+     * "label": "Sort order",
+     * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "placeholder":"Sort order"})
+     */
+    protected $sortOrder;
+
 
     /**
      * Many Levels have Many Expertise levels
@@ -72,5 +92,39 @@ use TimestampableEntity;
     function setExpertiseLEvels($expertiseLEvels) {
         $this->expertiseLEvels = $expertiseLEvels;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * @param mixed $sortOrder
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
+
+
 
 }

@@ -30,7 +30,10 @@ class levelService implements levelServiceInterface {
     public function getLevels() {
 
         $levels = $this->entityManager->getRepository(Level::class)
-                ->findBy(['deletedAt' => null],[]);
+                ->findBy(
+                    ['deletedAt' => null],
+                    ['sortOrder' => 'ASC']
+                );
 
         return $levels;
     }

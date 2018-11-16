@@ -140,6 +140,26 @@ return [
                             ],
                         ],
                     ],
+                    'expertises' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/expertises[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Projects\Controller\ExpertiseController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
+                    'consultants' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/consultants[[/]:action[/:id]]',
+                            'defaults' => [
+                                'controller' => \Projects\Controller\ConsultantController::class,
+                                'action' => 'index',
+                            ],
+                        ],
+                    ],
                     'images' => [
                         'type' => Segment::class,
                         'options' => [
@@ -213,6 +233,14 @@ return [
             \Projects\Controller\LevelController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+level.manage']
+            ],
+            \Projects\Controller\ExpertiseController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+expertise.manage']
+            ],
+            \Projects\Controller\ConsultantController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+consultant.manage']
             ],
         ]
     ],

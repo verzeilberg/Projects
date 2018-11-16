@@ -64,7 +64,7 @@ use TimestampableEntity;
      * "label": "E-mail",
      * "label_attributes": {"class": "col-sm-4 col-md-4 col-lg-4 col-form-label"}
      * })
-     * @Annotation\Attributes({"class":"form-control", "placeholder":"E-mail"})
+     * @Annotation\Attributes({"class":"form-control", "placeholder":"E-mail", "id":"inlineFormInputGroup"})
      */
     protected $email;
 
@@ -125,6 +125,10 @@ use TimestampableEntity;
 
     function setExpertiseLevels($expertiseLevels) {
         $this->expertiseLevels = $expertiseLevels;
+    }
+
+    function getFullName() {
+        return $this->surName . ' ' . ($this->lastNamePrefix?  $this->lastNamePrefix . ' ': '') . $this->lastName;
     }
 
 }

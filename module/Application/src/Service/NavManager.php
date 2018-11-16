@@ -96,6 +96,16 @@ class NavManager {
                             'label' => 'Levels',
                             'link' => $url('beheer/levels')
                         ],
+                        [
+                            'id' => 'expertises',
+                            'label' => 'Expertises',
+                            'link' => $url('beheer/expertises')
+                        ],
+                        [
+                            'id' => 'consultants',
+                            'label' => 'Consultants',
+                            'link' => $url('beheer/consultants')
+                        ],
                     ]
                 ];
             }
