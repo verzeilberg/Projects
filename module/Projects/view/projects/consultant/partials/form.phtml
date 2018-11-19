@@ -39,7 +39,7 @@
 <h2><?php echo $this->translator()->translate('manage.expertises'); ?></h2>
 <?php foreach ($expertises AS $expertise) { ?>
 <div class="row">
-    <div class="col-md-2"><input type="checkbox" class="mr-2" name="expertise" value="<?php echo $expertise->getId(); ?>" /><?php echo $expertise->getName(); ?></div>
+    <div class="col-md-2"><input type="checkbox" class="mr-2" name="expertise[]" value="<?php echo $expertise->getId(); ?>" /><?php echo $expertise->getName(); ?></div>
     <div class="col">
         <?php foreach ($levels AS $level) { ?>
                     <input type="radio" class="ml-2" name="<?php echo $expertise->getId(); ?>-expertiseLevel" value="<?php echo $expertise->getId() . '-' .  $level->getId(); ?>">
@@ -48,7 +48,6 @@
     </div>
 </div>
 <?php } ?>
-
 <hr />
 <div class="form-group row">
     <div class="col-sm-12 col-md-12 col-lg-12">

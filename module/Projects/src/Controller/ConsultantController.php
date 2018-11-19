@@ -40,9 +40,17 @@ class ConsultantController extends AbstractActionController {
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
 
-            if ($form->isValid()) { 
+            if ($form->isValid()) {
+
+
+
                 //Save Customer
                 $this->serviceManager->saveConsultant($consultant);
+
+                $expertises = $this->getRequest()->getPost('expertise');
+                if(count($expertises) > 0) {
+                    $expertises = $this->expertiseManager->getExpertisesById($expertises);
+                }
 
                 return $this->redirect()->toRoute('beheer/consultants');
             }
@@ -60,6 +68,8 @@ class ConsultantController extends AbstractActionController {
     }
 
     public function editAction() {
+
+
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('beheer/consultants');
@@ -76,8 +86,17 @@ class ConsultantController extends AbstractActionController {
             $form->setData($this->getRequest()->getPost());
 
             if ($form->isValid()) {
+
+                $expertises = $this->getRequest()->getPost('expertise');
+                if(count($expertises) > 0) {
+                    $expertiseLevelItems = $this->expertiseManager->getExpertisesByIds($expertises);
+                    var_dump($expertiseLevelItems); die('test');
+                }
+
                 //Save Customer
                 $this->serviceManager->saveConsultant($consultant);
+
+
 
                 return $this->redirect()->toRoute('beheer/consultants');
             }

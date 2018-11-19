@@ -33,8 +33,17 @@ class expertiseService implements expertiseServiceInterface {
                 ->findBy(
                     ['deletedAt' => null]
                 );
-
         return $expertises;
+    }
+
+    public function getExpertisesByIds(array $expertises) {
+
+        $qb = $this->entityManager->getRepository(Expertise::class)->createQueryBuilder('e');
+        $qb->where("e.id IN(:expertiseIds)");
+        $qb->setParameter('expertiseIds', [1,2,3]);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
     }
 
     /**
@@ -46,17 +55,20 @@ class expertiseService implements expertiseServiceInterface {
      *
      */
     public function getExpertise($id) {
-        $expertise = $this->entityManager->getRepository(Expertise::class)
-                ->findOneBy(['id' => $id], []);
+        $id = (int)$id;
 
-        return $expertise;
+        $level = $this->entityManager->getRepository(Expertise::class)
+            ->findOneBy(['id' => $id], []);
+
+        return $level;
     }
-    
-        /**
+
+
+    /**
      *
      * Create form of an object
      *
-     * @param       blog $event $expertise
+     * @param       expertise $expertise
      * @return      form
      *
      */

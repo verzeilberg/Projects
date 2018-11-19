@@ -30,7 +30,7 @@ class customerService implements customerServiceInterface {
     public function getCustomers() {
 
         $customers = $this->entityManager->getRepository(Customer::class)
-                ->findBy([], ['dateCreated' => 'DESC']);
+                ->findBy([], ['createdAt' => 'DESC']);
 
         return $customers;
     }
