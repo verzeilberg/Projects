@@ -69,9 +69,8 @@ use TimestampableEntity;
     protected $email;
 
     /**
-     * Many Consultants have Many Expertise levels.
-     * @ORM\ManyToMany(targetEntity="ExpertiseLevel", inversedBy="consultants")
-     * @ORM\JoinTable(name="consultants_expertiselevels")
+     * One consultant has many expertises with levels.
+     * @ORM\OneToMany(targetEntity="ExpertiseLevel", mappedBy="consultant")
      */
     private $expertiseLevels;
 
@@ -128,7 +127,7 @@ use TimestampableEntity;
     }
 
     function getFullName() {
-        return $this->surName . ' ' . ($this->lastNamePrefix?  $this->lastNamePrefix . ' ': '') . $this->lastName;
+        return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . $this->lastName;
     }
 
 }

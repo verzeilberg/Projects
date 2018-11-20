@@ -12,13 +12,15 @@ class ConsultantController extends AbstractActionController {
     protected $serviceManager;
     protected $expertiseManager;
     protected $levelManager;
+    protected $expertiseLevelManager;
 
-    public function __construct($vhm, $em, $serviceManager, $expertiseManager, $levelManager) {
+    public function __construct($vhm, $em, $serviceManager, $expertiseManager, $levelManager, $expertiseLevelManager) {
         $this->vhm = $vhm;
         $this->em = $em;
         $this->serviceManager = $serviceManager;
         $this->expertiseManager = $expertiseManager;
         $this->levelManager = $levelManager;
+        $this->expertiseLevelManager = $expertiseLevelManager;
     }
 
     public function indexAction() {
@@ -26,7 +28,7 @@ class ConsultantController extends AbstractActionController {
 
         return new ViewModel(
                 array(
-                    'items' => $items
+            'items' => $items
                 )
         );
     }
@@ -41,28 +43,32 @@ class ConsultantController extends AbstractActionController {
             $form->setData($this->getRequest()->getPost());
 
             if ($form->isValid()) {
-
-
-
                 //Save Customer
                 $this->serviceManager->saveConsultant($consultant);
-
+                //Get selected expertise
                 $expertises = $this->getRequest()->getPost('expertise');
-                if(count($expertises) > 0) {
-                    $expertises = $this->expertiseManager->getExpertisesById($expertises);
-                }
+                if (count($expertises) > 0) {
+                    $expertiseLevelItems = $this->expertiseManager->getExpertisesByIds($expertises);
 
+                    foreach ($expertiseLevelItems AS $item) {
+                        $levelId = $this->getRequest()->getPost($item->getId() . '-expertiseLevel');
+                        $level = $this->levelManager->getLevel($levelId);
+                        //Save Expertise level
+                        $expertiseLevel = $this->expertiseLevelManager->newExpertiseLevel();
+                        $expertiseLevel->setConsultant($consultant);
+                        $expertiseLevel->setExpertise($item);
+                        $expertiseLevel->setLevel($level);
+                        $this->expertiseLevelManager->saveExpertiseLevel($expertiseLevel);
+                    }
+                }
                 return $this->redirect()->toRoute('beheer/consultants');
             }
         }
-
-
-
         return new ViewModel(
                 array(
-                    'form' => $form,
-                    'expertises' => $expertises,
-                    'levels' => $levels
+            'form' => $form,
+            'expertises' => $expertises,
+            'levels' => $levels
                 )
         );
     }
@@ -78,35 +84,44 @@ class ConsultantController extends AbstractActionController {
         if (empty($consultant)) {
             return $this->redirect()->toRoute('beheer/consultants');
         }
+        
+        $expertiseLevels = $this->expertiseLevelManager->getExpertiseLevelsByConsultant($consultant->getId());
+        
         $expertises = $this->expertiseManager->getExpertises();
         $levels = $this->levelManager->getLevels();
         $form = $this->serviceManager->createForm($consultant);
 
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
-
             if ($form->isValid()) {
-
-                $expertises = $this->getRequest()->getPost('expertise');
-                if(count($expertises) > 0) {
-                    $expertiseLevelItems = $this->expertiseManager->getExpertisesByIds($expertises);
-                    var_dump($expertiseLevelItems); die('test');
-                }
-
                 //Save Customer
                 $this->serviceManager->saveConsultant($consultant);
+                //Get selected expertise
+                $expertises = $this->getRequest()->getPost('expertise');
+                if (count($expertises) > 0) {
+                    $expertiseLevelItems = $this->expertiseManager->getExpertisesByIds($expertises);
 
-
-
+                    foreach ($expertiseLevelItems AS $item) {
+                        $levelId = $this->getRequest()->getPost($item->getId() . '-expertiseLevel');
+                        $level = $this->levelManager->getLevel($levelId);
+                        //Save Expertise level
+                        $expertiseLevel = $this->expertiseLevelManager->newExpertiseLevel();
+                        $expertiseLevel->setConsultant($consultant);
+                        $expertiseLevel->setExpertise($item);
+                        $expertiseLevel->setLevel($level);
+                        $this->expertiseLevelManager->saveExpertiseLevel($expertiseLevel);
+                    }
+                }
                 return $this->redirect()->toRoute('beheer/consultants');
             }
         }
 
         return new ViewModel(
                 array(
-                    'form' => $form,
-                    'expertises' => $expertises,
-                    'levels' => $levels
+            'form' => $form,
+            'expertiseLevels' => $expertiseLevels,
+            'expertises' => $expertises,
+            'levels' => $levels
                 )
         );
     }

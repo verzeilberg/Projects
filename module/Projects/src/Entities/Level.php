@@ -57,18 +57,6 @@ class Level {
      */
     protected $sortOrder;
 
-
-    /**
-     * Many Levels have Many Expertise levels
-     * @ORM\ManyToMany(targetEntity="ExpertiseLevel", inversedBy="levels")
-     * @ORM\JoinTable(name="levels_expertises")
-     */
-    private $expertiseLevels;
-
-    public function __construct() {
-        $this->expertiseLevels = new ArrayCollection();
-    }
-
     function getId() {
         return $this->id;
     }
@@ -83,14 +71,6 @@ class Level {
 
     function setName($name) {
         $this->name = $name;
-    }
-
-    function getExpertiseLEvels() {
-        return $this->expertiseLEvels;
-    }
-
-    function setExpertiseLEvels($expertiseLEvels) {
-        $this->expertiseLEvels = $expertiseLEvels;
     }
 
     /**

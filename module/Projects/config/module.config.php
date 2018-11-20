@@ -27,6 +27,7 @@ return [
             'Projects\Service\levelServiceInterface' => 'Projects\Service\levelService',
             'Projects\Service\expertiseServiceInterface' => 'Projects\Service\expertiseService',
             'Projects\Service\consultantServiceInterface' => 'Projects\Service\consultantService',
+            'Projects\Service\expertiseLevelServiceInterface' => 'Projects\Service\expertiseLevelService',
         ],
     ],
     // The following section is new and should be added to your file

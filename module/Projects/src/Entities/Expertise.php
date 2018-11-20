@@ -37,24 +37,16 @@ use TimestampableEntity;
      * @Annotation\Attributes({"class":"form-control", "placeholder":"Name"})
      */
     protected $name;
-    
-        /**
+
+    /**
      * Many Expertise have Many Projects.
      * @ORM\ManyToMany(targetEntity="Project", inversedBy="expertises")
      * @ORM\JoinTable(name="expertises_projects")
      */
     private $projects;
-    
-        /**
-     * Many Expertises have Many Expertise levels
-     * @ORM\ManyToMany(targetEntity="ExpertiseLevel", inversedBy="expertises")
-     * @ORM\JoinTable(name="expertiselevels_expertises")
-     */
-    private $expertiseLevels;
 
     public function __construct() {
         $this->projects = new ArrayCollection();
-        $this->expertiseLevels = new ArrayCollection();
     }
 
     function getId() {
@@ -72,7 +64,7 @@ use TimestampableEntity;
     function setName($name) {
         $this->name = $name;
     }
-    
+
     function getProjects() {
         return $this->projects;
     }
@@ -80,15 +72,5 @@ use TimestampableEntity;
     function setProjects($projects) {
         $this->projects = $projects;
     }
-
-    function getExpertiseLevels() {
-        return $this->expertiseLevels;
-    }
-
-    function setExpertiseLevels($expertiseLevels) {
-        $this->expertiseLevels = $expertiseLevels;
-    }
-
-
 
 }

@@ -1,4 +1,4 @@
-<?php echo $this->form()->openTag($form); ?>
+ <?php echo $this->form()->openTag($form); ?>
 <div class="form-group row">
     <?php echo $this->formLabel($form->get('surName')); ?>
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -37,12 +37,22 @@
     </div>
 <hr />
 <h2><?php echo $this->translator()->translate('manage.expertises'); ?></h2>
+
+
 <?php foreach ($expertises AS $expertise) { ?>
 <div class="row">
-    <div class="col-md-2"><input type="checkbox" class="mr-2" name="expertise[]" value="<?php echo $expertise->getId(); ?>" /><?php echo $expertise->getName(); ?></div>
+    <div class="col-md-2"><input type="checkbox" class="mr-2" name="expertise[]" value="<?php echo $expertise->getId(); ?>" <?php echo (array_key_exists($expertise->getId(),$expertiseLevels)? 'checked':''); ?> /><?php echo $expertise->getName(); ?></div>
     <div class="col">
         <?php foreach ($levels AS $level) { ?>
-                    <input type="radio" class="ml-2" name="<?php echo $expertise->getId(); ?>-expertiseLevel" value="<?php echo $expertise->getId() . '-' .  $level->getId(); ?>">
+        <?php 
+        $levelValue = null;
+        if(array_key_exists($expertise->getId(),$expertiseLevels)) {
+            $levelValue = $expertiseLevels[$expertise->getId()];
+        }
+        
+        ?>
+        
+                    <input type="radio" class="ml-2" name="<?php echo $expertise->getId(); ?>-expertiseLevel" value="<?php echo $level->getId(); ?>" <?php echo ($levelValue == $level->getId()?'checked':''); ?> />
                     <?php echo $level->getName(); ?>
         <?php } ?>
     </div>

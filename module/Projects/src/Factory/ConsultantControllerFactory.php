@@ -8,6 +8,7 @@ use Projects\Controller\ConsultantController;
 use Projects\Service\consultantService;
 use Projects\Service\expertiseService;
 use Projects\Service\levelService;
+use Projects\Service\expertiseLevelService;
 
 /**
  * This is the factory for AuthController. Its purpose is to instantiate the controller
@@ -22,7 +23,14 @@ class ConsultantControllerFactory implements FactoryInterface {
         $serviceManager = new consultantService($entityManager);
         $expertiseManager = new expertiseService($entityManager);
         $levelManager = new levelService($entityManager);
-        return new ConsultantController($vhm, $entityManager, $serviceManager, $expertiseManager, $levelManager);
+        $expertiseLevelManager = new expertiseLevelService($entityManager);
+        return new ConsultantController(
+                $vhm, 
+                $entityManager, 
+                $serviceManager, 
+                $expertiseManager, 
+                $levelManager,
+                $expertiseLevelManager);
     }
 
 }

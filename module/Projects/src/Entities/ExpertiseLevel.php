@@ -18,7 +18,8 @@ use Application\Traits\TimestampableEntity;
 class ExpertiseLevel {
 
     use SoftDeleteableEntity;
-    use TimestampableEntity;
+
+use TimestampableEntity;
 
     /**
      * @ORM\Id
@@ -28,62 +29,54 @@ class ExpertiseLevel {
     protected $id;
 
     /**
-     * Many Expertise levels have Many Levels.
-     * @ORM\ManyToMany(targetEntity="Level", mappedBy="expertiseLevels")
+     * @ORM\ManyToOne(targetEntity="Level")
+     * @ORM\JoinColumn(name="level_id", referencedColumnName="id")
      */
-    private $levels;
-    
-        /**
-     * Many Expertise levels have Many Expertises.
-     * @ORM\ManyToMany(targetEntity="Expertise", mappedBy="expertiseLevels")
-     */
-    private $expertises;
-    
-        /**
-     * Many Expertise levels have Many Consultants.
-     * @ORM\ManyToMany(targetEntity="Consultant", mappedBy="expertiseLevels")
-     */
-    private $consultants;
+    private $level;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Expertise")
+     * @ORM\JoinColumn(name="expertise_id", referencedColumnName="id")
+     */
+    private $expertise;
 
-    public function __construct() {
-        $this->levels = new ArrayCollection();
-        $this->expertises = new ArrayCollection();
-        $this->consultants = new ArrayCollection();
-    }
-    
+    /**
+     * Many ExpertiseLevels have one consultant. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Consultant", inversedBy="expertiseLevels")
+     * @ORM\JoinColumn(name="consultant_id", referencedColumnName="id")
+     */
+    private $consultant;
+
     function getId() {
         return $this->id;
     }
 
-    function getLevels() {
-        return $this->levels;
+    function getLevel() {
+        return $this->level;
     }
 
-    function getExpertises() {
-        return $this->expertises;
+    function getExpertise() {
+        return $this->expertise;
+    }
+
+    function getConsultant() {
+        return $this->consultant;
     }
 
     function setId($id) {
         $this->id = $id;
     }
 
-    function setLevels($levels) {
-        $this->levels = $levels;
+    function setLevel($level) {
+        $this->level = $level;
     }
 
-    function setExpertises($expertises) {
-        $this->expertises = $expertises;
+    function setExpertise($expertise) {
+        $this->expertise = $expertise;
     }
 
-    function getConsultants() {
-        return $this->consultants;
+    function setConsultant($consultant) {
+        $this->consultant = $consultant;
     }
-
-    function setConsultants($consultants) {
-        $this->consultants = $consultants;
-    }
-
-
 
 }
